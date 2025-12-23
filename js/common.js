@@ -26,7 +26,7 @@ auth.onAuthStateChanged((user) => {
         loadUserProgress(user.uid);
     } else {
         // User is signed out - check for saved code
-        const savedCode = localStorage.getItem('userAccessCode');
+        const savedCode = localStorage.getItem('userCode');
         const savedUserId = localStorage.getItem('userId');
         const savedName = localStorage.getItem('userName');
         
@@ -49,12 +49,13 @@ auth.onAuthStateChanged((user) => {
 
 // Helper function to update user display
 function updateUserDisplay(userName) {
-    const userCode = localStorage.getItem('userAccessCode');
+    const userCode = localStorage.getItem('userCode');
     
     // Update name displays
     const nameElements = document.querySelectorAll('#user-name-header, .user-name-display');
     nameElements.forEach(el => {
         if (userCode) {
+            // Show name with code preview
             el.textContent = `${userName} (${userCode.substring(0, 7)}...)`;
             el.title = `Name: ${userName}\nCode: ${userCode}`;
         } else {
@@ -71,8 +72,10 @@ function updateUserDisplay(userName) {
 
 // Logout Function
 function logout() {
-    const userCode = localStorage.getItem('userAccessCode');
-    const confirmMsg = `Wirklich abmelden?\n\nIhr Code: ${userCode}\n\n(Code bleibt gespeichert für späteren Login)`;
+    const userCode = localStorage.getItem('userCode');
+    const confirmMsg = userCode 
+        ? `Wirklich abmelden?\n\nIhr Code: ${userCode}\n\n(Code bleibt gespeichert für späteren Login)`
+        : 'Wirklich abmelden?';
     
     if (confirm(confirmMsg)) {
         auth.signOut().then(() => {
