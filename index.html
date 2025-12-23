@@ -3,457 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Interaktive Lern-App zum Schweizer Urheberrecht">
-    <title>Urheberrecht Lern-App - Start</title>
+    <title>Urheberrecht Lern-App - Login</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-logo">
-                <div class="login-logo-icon" role="img" aria-label="Gesetzbuch">📚</div>
-                <h1 class="login-title">Urheberrecht Lern-App</h1>
-                <p class="login-subtitle">Schweizer Urheberrecht interaktiv lernen</p>
+    <div class="container">
+        <div class="login-container">
+            <div class="login-header">
+                <div style="font-size: 48px; margin-bottom: 16px;">📚</div>
+                <h1>Urheberrecht Lern-App</h1>
+                <p class="subtitle">Schweizerisches Urheberrecht interaktiv lernen</p>
             </div>
 
-            <!-- Code eingeben für Rückkehr - JETZT ZUERST! -->
-            <div id="existing-code-section">
-                <details style="border: 2px solid var(--zh-blue); border-radius: 8px; padding: 16px; background: var(--zh-gray-light); margin-bottom: 24px;">
-                    <summary style="cursor: pointer; font-weight: 600; font-size: 15px; color: var(--zh-blue);">
-                        📱 Bereits einen Code? Hier anmelden →
-                    </summary>
-                    <div style="margin-top: 16px;">
-                        <label for="existing-code" class="form-label">Ihr Zugangs-Code:</label>
-                        <input 
-                            type="text" 
-                            id="existing-code" 
-                            class="form-input" 
-                            placeholder="z.B. 7aK9mP2xQ5-42"
-                            style="font-family: 'Courier New', monospace; letter-spacing: 1px;"
-                        >
-                        <button class="btn btn-primary" onclick="loginWithCode()" style="width: 100%; margin-top: 12px;">
-                            Mit Code anmelden →
-                        </button>
-                        <div id="code-error" class="error-message"></div>
-                    </div>
-                </details>
-            </div>
-
-            <!-- Namen eingeben Bereich -->
-            <div id="name-input-section">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <p style="font-size: 14px; color: #666;">Oder neu starten:</p>
-                </div>
-                
-                <div style="margin: 24px 0;">
-                    <h2 style="font-size: 18px; color: var(--zh-blue); margin-bottom: 16px; text-align: center;">
+            <!-- Erste Seite: Willkommen -->
+            <div id="welcome-section">
+                <div style="text-align: center; margin: 32px 0;">
+                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 16px;">
                         Willkommen! 👋
                     </h2>
-                    <p style="font-size: 14px; color: #666; text-align: center; margin-bottom: 24px;">
-                        Wie dürfen wir Sie nennen?
+                    <p style="font-size: 14px; color: #666; margin-bottom: 24px;">
+                        Geben Sie Ihren Namen ein und wir erstellen Ihren persönlichen Zugang.
                     </p>
-                    
-                    <div class="form-group">
-                        <label for="user-name" class="form-label">Ihr Name (optional):</label>
-                        <input 
-                            type="text" 
-                            id="user-name" 
-                            class="form-input" 
-                            placeholder="z.B. Anna Müller"
-                            maxlength="50"
-                            autocomplete="name"
-                        >
-                        <p style="font-size: 12px; color: #888; margin-top: 8px;">
-                            Der Name erscheint auf Ihrem Zertifikat. Sie können auch anonym bleiben.
-                        </p>
-                    </div>
-
-                    <button class="btn btn-primary btn-large" onclick="startWithName()" style="width: 100%; margin-top: 8px;">
-                        Neu starten →
-                    </button>
-                </div>
-            </div>
-
-            <!-- Automatischer Code-Login Bereich -->
-            <div id="auto-login-section" style="display: none;">
-                <div style="text-align: center; margin: 32px 0;">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p style="margin-top: 16px; color: #666;">Login läuft...</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Code-Anzeige nach Login -->
-            <div id="code-display-section" style="display: none;">
-                <div style="background: linear-gradient(135deg, #e8f2ff 0%, #f0f7ff 100%); border: 2px solid var(--zh-blue); border-radius: 12px; padding: 24px; margin: 24px 0; text-align: center;">
-                    <p style="font-size: 13px; color: #666; margin-bottom: 12px;">
-                        <strong>✓ Ihr persönlicher Zugangs-Code:</strong>
-                    </p>
-                    <div id="user-code" style="font-size: 28px; font-weight: 700; color: var(--zh-blue); font-family: 'Courier New', monospace; letter-spacing: 2px; margin: 16px 0; padding: 16px; background: white; border-radius: 8px; word-break: break-all;">
-                        Lädt...
-                    </div>
-                    <p style="font-size: 12px; color: #888; line-height: 1.6;">
-                        Speichern Sie diesen Code! Sie brauchen ihn, um später weiterzumachen.
-                    </p>
-                    <button class="btn btn-secondary" onclick="copyCode()" style="margin-top: 16px; width: 100%;">
-                        📋 Code kopieren
-                    </button>
                 </div>
 
-                <button class="btn btn-primary btn-large" onclick="startLearning()" style="width: 100%;">
-                    Jetzt lernen starten! →
+                <div class="form-group">
+                    <label for="user-name" class="form-label">Ihr Name (optional):</label>
+                    <input 
+                        type="text" 
+                        id="user-name" 
+                        class="form-input" 
+                        placeholder="z.B. Anna Müller"
+                        maxlength="50"
+                        autocomplete="name"
+                    >
+                    <p style="font-size: 12px; color: #888; margin-top: 8px;">
+                        Ihr Name erscheint auf dem Zertifikat. Sie können auch anonym bleiben.
+                    </p>
+                </div>
+
+                <button class="btn btn-primary btn-large" onclick="generateCredentials()" style="width: 100%; margin-top: 8px;">
+                    Zugang erstellen →
                 </button>
+
+                <div style="margin-top: 24px; text-align: center;">
+                    <p style="font-size: 13px; color: #666;">Bereits einen Zugang?</p>
+                    <button class="btn btn-secondary" onclick="showLoginForm()" style="margin-top: 8px;">
+                        Hier anmelden →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Login-Formular -->
+            <div id="login-section" style="display: none;">
+                <div style="text-align: center; margin: 24px 0;">
+                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 16px;">
+                        Anmelden
+                    </h2>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-email" class="form-label">Email:</label>
+                    <input 
+                        type="email" 
+                        id="login-email" 
+                        class="form-input" 
+                        placeholder="ihre-email@beispiel.com"
+                        autocomplete="email"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password" class="form-label">Passwort:</label>
+                    <input 
+                        type="password" 
+                        id="login-password" 
+                        class="form-input" 
+                        placeholder="Ihr Passwort"
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <div id="login-error" class="error-message"></div>
+
+                <button class="btn btn-primary btn-large" onclick="loginWithCredentials()" style="width: 100%; margin-top: 8px;">
+                    Anmelden →
+                </button>
+
+                <div style="margin-top: 16px; text-align: center;">
+                    <button class="btn btn-secondary" onclick="showWelcome()" style="font-size: 13px;">
+                        ← Zurück
+                    </button>
+                </div>
+            </div>
+
+            <!-- Credentials anzeigen -->
+            <div id="credentials-section" style="display: none;">
+                <div style="text-align: center; margin-bottom: 24px;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
+                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 8px;">
+                        Zugang erstellt!
+                    </h2>
+                    <p id="greeting-text" style="font-size: 16px; color: #333; font-weight: 600;"></p>
+                </div>
+
+                <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 20px; margin: 24px 0;">
+                    <p style="font-weight: 600; color: #856404; margin-bottom: 16px; text-align: center;">
+                        ⚠️ Bitte speichern Sie diese Zugangsdaten!
+                    </p>
+
+                    <div class="form-group">
+                        <label class="form-label">Email:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input 
+                                type="text" 
+                                id="generated-email" 
+                                class="form-input" 
+                                readonly
+                                style="font-family: 'Courier New', monospace; flex: 1;"
+                            >
+                            <button class="btn btn-secondary" onclick="copyToClipboard('generated-email')" style="min-width: 100px;">
+                                📋 Kopieren
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Passwort:</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input 
+                                type="text" 
+                                id="generated-password" 
+                                class="form-input" 
+                                readonly
+                                style="font-family: 'Courier New', monospace; flex: 1;"
+                            >
+                            <button class="btn btn-secondary" onclick="copyToClipboard('generated-password')" style="min-width: 100px;">
+                                📋 Kopieren
+                            </button>
+                        </div>
+                    </div>
+
+                    <p style="font-size: 12px; color: #856404; margin-top: 12px; text-align: center;">
+                        Sie benötigen diese Daten, um sich später wieder anzumelden.
+                    </p>
+                </div>
+
+                <button class="btn btn-primary btn-large" onclick="proceedToDashboard()" style="width: 100%;">
+                    Jetzt lernen starten! 🚀
+                </button>
+            </div>
+
+            <!-- Loading -->
+            <div id="loading-section" style="display: none; text-align: center; padding: 40px;">
+                <div style="font-size: 48px; margin-bottom: 16px;">⏳</div>
+                <p style="font-size: 16px; color: var(--zh-blue);">Einen Moment bitte...</p>
             </div>
 
             <!-- Info Box -->
             <div class="login-info" style="margin-top: 24px; padding: 16px; background: #f5f5f5; border-radius: 8px; font-size: 13px; color: #666;">
                 <p style="margin-bottom: 8px;"><strong>ℹ️ Wie funktioniert's?</strong></p>
                 <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li><strong>Mit Code:</strong> Geben Sie Ihren Code oben ein</li>
-                    <li><strong>Neu starten:</strong> Namen eingeben (optional) und loslegen</li>
-                    <li>4 Module, Punktesystem, Zertifikat</li>
+                    <li><strong>Neu:</strong> Namen eingeben → Automatischer Zugang</li>
+                    <li><strong>Login:</strong> Mit Email & Passwort anmelden</li>
+                    <li>4 interaktive Module mit Punktesystem</li>
+                    <li>Zertifikat am Ende erhalten</li>
                 </ul>
             </div>
         </div>
     </div>
 
-    <!-- Firebase SDKs -->
+    <div id="toast" class="toast"></div>
+
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="js/firebase-config.js"></script>
-    
+
     <script>
-        let currentUserCode = null;
-        let userName = null;
+        let userName = '';
+        let generatedEmail = '';
+        let generatedPassword = '';
 
-        function generateReadableCode(uid) {
-            const shortUid = uid.substring(0, 10);
-            const checksum = uid.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0) % 100;
-            return `${shortUid}-${checksum.toString().padStart(2, '0')}`;
+        // Navigation
+        function showWelcome() {
+            document.getElementById('welcome-section').style.display = 'block';
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('credentials-section').style.display = 'none';
+            document.getElementById('loading-section').style.display = 'none';
         }
 
-        function startWithName() {
-            userName = document.getElementById('user-name').value.trim();
-            if (userName) localStorage.setItem('userName', userName);
-            document.getElementById('name-input-section').style.display = 'none';
-            document.getElementById('auto-login-section').style.display = 'block';
-            autoLogin();
+        function showLoginForm() {
+            document.getElementById('welcome-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('credentials-section').style.display = 'none';
+            document.getElementById('loading-section').style.display = 'none';
         }
 
-        async function autoLogin() {
+        function showLoading() {
+            document.getElementById('welcome-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('credentials-section').style.display = 'none';
+            document.getElementById('loading-section').style.display = 'block';
+        }
+
+        function showCredentials() {
+            document.getElementById('welcome-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('credentials-section').style.display = 'block';
+            document.getElementById('loading-section').style.display = 'none';
+        }
+
+        // Helper: Generate random string
+        function generateRandomString(length) {
+            const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // Generate credentials and create user
+        async function generateCredentials() {
             try {
-                if (auth.currentUser) {
-                    showCodeAndProceed(auth.currentUser);
-                    return;
-                }
+                showLoading();
 
-                const savedCode = localStorage.getItem('userAccessCode');
-                const savedName = localStorage.getItem('userName');
-                
-                if (savedCode && savedName) {
-                    userName = savedName;
-                    document.getElementById('auto-login-section').innerHTML = `
-                        <div style="text-align: center; padding: 20px;">
-                            <p style="color: var(--zh-blue); font-weight: 600; margin-bottom: 16px;">
-                                ✓ Willkommen zurück, ${savedName}!
-                            </p>
-                            <p style="font-size: 13px; color: #666;">
-                                Code: <strong style="font-family: 'Courier New', monospace;">${savedCode}</strong>
-                            </p>
-                        </div>
-                    `;
-                    await new Promise(resolve => setTimeout(resolve, 800));
-                }
+                // Get name
+                userName = document.getElementById('user-name').value.trim() || 'Anonym';
 
-                const userCredential = await auth.signInAnonymously();
+                // Generate email and password
+                const randomId = generateRandomString(12);
+                generatedEmail = `user-${randomId}@urheberrecht-app.local`;
+                generatedPassword = generateRandomString(16);
+
+                console.log('🔐 Creating user with email:', generatedEmail);
+
+                // Create Firebase user
+                const userCredential = await auth.createUserWithEmailAndPassword(generatedEmail, generatedPassword);
                 const user = userCredential.user;
 
-                currentUserCode = generateReadableCode(user.uid);
-                localStorage.setItem('userAccessCode', currentUserCode);
+                console.log('✓ User created:', user.uid);
+
+                // Create user document in Firestore
+                await db.collection('users').doc(user.uid).set({
+                    name: userName,
+                    email: generatedEmail,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+                    modules: {
+                        modul1: { completed: false, score: 0, progress: 0 },
+                        modul2: { completed: false, score: 0, progress: 0 },
+                        modul3: { completed: false, score: 0, progress: 0 },
+                        modul4: { completed: false, score: 0, progress: 0 }
+                    },
+                    totalPoints: 0,
+                    overallProgress: 0
+                });
+
+                console.log('✓ User document created');
+
+                // Save to localStorage
+                localStorage.setItem('userName', userName);
                 localStorage.setItem('userId', user.uid);
 
-                const userRef = db.collection('users').doc(user.uid);
-                const userDoc = await userRef.get();
+                // Show credentials
+                document.getElementById('generated-email').value = generatedEmail;
+                document.getElementById('generated-password').value = generatedPassword;
+                document.getElementById('greeting-text').textContent = userName !== 'Anonym' 
+                    ? `Hallo ${userName}! 👋` 
+                    : 'Ihr Zugang wurde erstellt!';
 
-                if (!userDoc.exists) {
-                    // NEUER USER
-                    console.log('📝 Creating new user with name:', userName || 'Anonym');
-                    await userRef.set({
-                        name: userName || 'Anonym',
-                        accessCode: currentUserCode,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                        lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-                        modules: {
-                            modul1: { completed: false, score: 0, progress: 0 },
-                            modul2: { completed: false, score: 0, progress: 0 },
-                            modul3: { completed: false, score: 0, progress: 0 },
-                            modul4: { completed: false, score: 0, progress: 0 }
-                        },
-                        totalPoints: 0,
-                        overallProgress: 0
-                    });
-                } else {
-                    // EXISTIERENDER USER
-                    const data = userDoc.data();
-                    console.log('👤 Existing user, checking data...');
-                    
-                    const updateData = { 
-                        lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
-                    };
-                    
-                    // MIGRATION: Alte User haben "email", neue brauchen "name"
-                    if (!data.name) {
-                        console.log('⚠️ Old user data detected, migrating...');
-                        // Wenn User gerade Namen eingegeben hat, nutze den
-                        // Sonst "Anonym"
-                        updateData.name = userName || 'Anonym';
-                        console.log('✓ Setting name to:', updateData.name);
-                    } else if (userName && data.name !== userName) {
-                        // User hat neuen Namen eingegeben
-                        updateData.name = userName;
-                        console.log('✓ Updating name to:', userName);
-                    }
-                    
-                    // Entferne altes email-Feld falls vorhanden
-                    if (data.email !== undefined) {
-                        console.log('🗑️ Removing old email field');
-                        updateData.email = firebase.firestore.FieldValue.delete();
-                    }
-                    
-                    await userRef.update(updateData);
-                    
-                    // Code laden
-                    if (data.accessCode) {
-                        currentUserCode = data.accessCode;
-                        localStorage.setItem('userAccessCode', currentUserCode);
-                    }
-                    
-                    // Name laden (neu gesetzter oder existierender)
-                    const updatedName = updateData.name || data.name || 'Anonym';
-                    userName = updatedName;
-                    localStorage.setItem('userName', updatedName);
-                    console.log('✓ Name loaded:', userName);
-                }
-
-                showCodeAndProceed(user);
+                showCredentials();
 
             } catch (error) {
-                console.error('Auto-login error:', error);
-                showError('Login fehlgeschlagen. Bitte Seite neu laden.');
+                console.error('❌ Error generating credentials:', error);
+                showWelcome();
+                
+                let errorMsg = 'Fehler beim Erstellen des Zugangs.';
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMsg = 'Diese Email wird bereits verwendet. Bitte melden Sie sich an.';
+                }
+                
+                showToast(errorMsg);
             }
         }
 
-        function showCodeAndProceed(user) {
-            document.getElementById('auto-login-section').style.display = 'none';
-            document.getElementById('code-display-section').style.display = 'block';
-            // existing-code-section bleibt sichtbar für einfachen Zugriff
-            
-            document.getElementById('user-code').textContent = currentUserCode;
-            
-            if (userName) {
-                const codeDisplay = document.getElementById('code-display-section');
-                const greeting = document.createElement('div');
-                greeting.style.cssText = 'text-align: center; margin-bottom: 20px; padding: 16px; background: #f0f7ff; border-radius: 8px;';
-                greeting.innerHTML = `<p style="color: var(--zh-blue); font-weight: 600; font-size: 16px;">Hallo ${userName}! 👋</p>`;
-                codeDisplay.insertBefore(greeting, codeDisplay.firstChild);
+        // Login with credentials
+        async function loginWithCredentials() {
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+            const errorDiv = document.getElementById('login-error');
+
+            if (!email || !password) {
+                errorDiv.textContent = 'Bitte Email und Passwort eingeben';
+                errorDiv.classList.add('show');
+                return;
+            }
+
+            errorDiv.classList.remove('show');
+            showLoading();
+
+            try {
+                console.log('🔐 Logging in with email:', email);
+
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+
+                console.log('✓ Login successful:', user.uid);
+
+                // Update last login
+                await db.collection('users').doc(user.uid).update({
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                // Load user data
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    if (userData.name) {
+                        localStorage.setItem('userName', userData.name);
+                    }
+                }
+
+                localStorage.setItem('userId', user.uid);
+
+                console.log('✓ Redirecting to dashboard...');
+                showToast('✓ Erfolgreich angemeldet!');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 800);
+
+            } catch (error) {
+                console.error('❌ Login error:', error);
+                showLoginForm();
+
+                let errorMsg = 'Email oder Passwort falsch.';
+                if (error.code === 'auth/user-not-found') {
+                    errorMsg = 'Kein Account gefunden. Bitte erstellen Sie einen neuen Zugang.';
+                } else if (error.code === 'auth/wrong-password') {
+                    errorMsg = 'Falsches Passwort.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMsg = 'Ungültige Email-Adresse.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMsg = 'Zu viele Versuche. Bitte warten Sie einen Moment.';
+                }
+
+                errorDiv.textContent = errorMsg;
+                errorDiv.classList.add('show');
             }
         }
 
-        function copyCode() {
-            const codeText = document.getElementById('user-code').textContent;
+        // Proceed to dashboard
+        function proceedToDashboard() {
+            window.location.href = 'dashboard.html';
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.value;
+
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(codeText).then(() => showToast('✓ Code kopiert!')).catch(() => fallbackCopyCode(codeText));
+                navigator.clipboard.writeText(text)
+                    .then(() => showToast('✓ Kopiert!'))
+                    .catch(() => fallbackCopy(text));
             } else {
-                fallbackCopyCode(codeText);
+                fallbackCopy(text);
             }
         }
 
-        function fallbackCopyCode(text) {
+        function fallbackCopy(text) {
             const textarea = document.createElement('textarea');
             textarea.value = text;
-            textarea.style.cssText = 'position:fixed;opacity:0';
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
             document.body.appendChild(textarea);
             textarea.select();
-            try { document.execCommand('copy'); showToast('✓ Code kopiert!'); } 
-            catch { showToast('⚠️ Bitte Code manuell kopieren'); }
+            try {
+                document.execCommand('copy');
+                showToast('✓ Kopiert!');
+            } catch (err) {
+                showToast('⚠️ Bitte manuell kopieren');
+            }
             document.body.removeChild(textarea);
         }
 
-        async function loginWithCode() {
-            const code = document.getElementById('existing-code').value.trim();
-            const errorDiv = document.getElementById('code-error');
-            if (!code) { 
-                errorDiv.textContent = 'Bitte Code eingeben'; 
-                errorDiv.classList.add('show'); 
-                return; 
-            }
-
-            const loginBtn = event.target;
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Anmeldung läuft...';
-
-            try {
-                // SCHRITT 1: Anonymous Login GARANTIEREN
-                console.log('🔐 Step 1: Checking auth...');
-                
-                if (!auth.currentUser) {
-                    console.log('⚠️ Not logged in, signing in anonymously...');
-                    const userCredential = await auth.signInAnonymously();
-                    console.log('✓ Anonymous login successful:', userCredential.user.uid);
-                    
-                    // WICHTIG: Kurz warten damit Firebase Auth sich setzt
-                    await new Promise(resolve => setTimeout(resolve, 500));
-                } else {
-                    console.log('✓ Already logged in:', auth.currentUser.uid);
-                }
-                
-                // SCHRITT 2: Nochmal prüfen ob Auth wirklich da ist
-                if (!auth.currentUser) {
-                    throw new Error('Authentication failed - please reload page');
-                }
-                
-                // SCHRITT 3: Code suchen (JETZT mit Auth!)
-                console.log('🔍 Step 2: Searching for code:', code);
-                const usersRef = db.collection('users');
-                const snapshot = await usersRef.where('accessCode', '==', code).limit(1).get();
-                
-                console.log('📊 Search results:', snapshot.size);
-                
-                if (snapshot.empty) {
-                    throw new Error('Code nicht gefunden');
-                }
-
-                // SCHRITT 4: User-Daten laden & Migration
-                const userDoc = snapshot.docs[0];
-                const userId = userDoc.id;
-                const userData = userDoc.data();
-                
-                console.log('✓ User found:', userId);
-                console.log('📊 User data:', userData);
-
-                // SCHRITT 5: Daten speichern & Migration
-                localStorage.setItem('userAccessCode', code);
-                localStorage.setItem('userId', userId);
-                
-                // MIGRATION: Alte User reparieren
-                const updateData = { 
-                    lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
-                };
-                
-                // Wenn kein Name existiert, setze "Anonym"
-                if (!userData.name) {
-                    console.log('⚠️ Old user data detected, setting name to "Anonym"');
-                    updateData.name = 'Anonym';
-                    localStorage.setItem('userName', 'Anonym');
-                } else {
-                    localStorage.setItem('userName', userData.name);
-                    console.log('✓ Name loaded:', userData.name);
-                }
-                
-                // Entferne altes email-Feld falls vorhanden
-                if (userData.email !== undefined) {
-                    console.log('🗑️ Removing old email field');
-                    updateData.email = firebase.firestore.FieldValue.delete();
-                }
-                
-                currentUserCode = code;
-
-                // SCHRITT 6: Last login updaten (+ Migration)
-                await db.collection('users').doc(userId).update(updateData);
-                
-                console.log('✓ Login successful!');
-
-                // SCHRITT 7: Weiterleiten
-                showToast('✓ Erfolgreich angemeldet!');
-                setTimeout(() => window.location.href = 'dashboard.html', 800);
-
-            } catch (error) {
-                console.error('❌ Login with code error:', error);
-                console.error('Error details:', {
-                    code: error.code,
-                    message: error.message,
-                    stack: error.stack
-                });
-                
-                let errorMsg = 'Ungültiger Code oder Verbindungsfehler';
-                
-                if (error.code === 'permission-denied') {
-                    errorMsg = '🔒 Berechtigungsfehler!\n\nBitte prüfen:\n1. Firestore Rules gesetzt?\n2. Anonymous Auth aktiviert?';
-                    console.error('🔒 PERMISSION DENIED - Check Firebase Rules!');
-                } else if (error.code === 'failed-precondition' || error.message.includes('index')) {
-                    errorMsg = '📊 Index fehlt!\n\nFirestore Index muss erstellt werden.\nBitte Console prüfen für Link.';
-                    console.error('📊 INDEX REQUIRED - Check console for link!');
-                } else if (error.message.includes('nicht gefunden')) {
-                    errorMsg = '❌ Code nicht gefunden.\n\nBitte Code prüfen:\n- Richtig eingegeben?\n- Bindestrich vorhanden?';
-                } else if (error.message.includes('Authentication failed')) {
-                    errorMsg = '⚠️ Authentication fehlgeschlagen.\n\nBitte Seite neu laden.';
-                }
-                
-                errorDiv.textContent = errorMsg;
-                errorDiv.classList.add('show');
-                errorDiv.style.whiteSpace = 'pre-line'; // Für Zeilenumbrüche
-                
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Mit Code anmelden →';
-                
-                setTimeout(() => errorDiv.classList.remove('show'), 8000);
-            }
-        }
-
-        function startLearning() { window.location.href = 'dashboard.html'; }
-
-        function showError(message) {
-            document.getElementById('auto-login-section').innerHTML = `
-                <div style="background: #ffe6e6; border: 2px solid var(--zh-red); padding: 20px; border-radius: 8px; text-align: center;">
-                    <p style="color: var(--zh-red); font-weight: 600; margin-bottom: 12px;">⚠️ Fehler</p>
-                    <p style="font-size: 14px; color: #666;">${message}</p>
-                    <button class="btn btn-primary" onclick="location.reload()" style="margin-top: 16px;">Seite neu laden</button>
-                </div>
-            `;
-        }
-
+        // Toast notification
         function showToast(message) {
-            const toast = document.createElement('div');
-            toast.style.cssText = 'position: fixed; bottom: 20px; right: 20px; background: #00994d; color: white; padding: 16px 24px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); font-size: 14px; font-weight: 600; z-index: 1000; animation: slideInUp 0.3s;';
+            const toast = document.getElementById('toast');
             toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => { toast.style.animation = 'slideOutDown 0.3s'; setTimeout(() => toast.remove(), 300); }, 2500);
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
         }
 
+        // Enter key support
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('user-name').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') generateCredentials();
+            });
+
+            document.getElementById('login-email').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') document.getElementById('login-password').focus();
+            });
+
+            document.getElementById('login-password').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') loginWithCredentials();
+            });
+        });
+
+        // Check if already logged in
         auth.onAuthStateChanged((user) => {
             if (user && window.location.pathname.includes('index.html')) {
-                const savedCode = localStorage.getItem('userAccessCode');
-                const savedName = localStorage.getItem('userName');
-                if (savedCode) {
-                    currentUserCode = savedCode;
-                    userName = savedName;
-                    document.getElementById('name-input-section').style.display = 'none';
-                    document.getElementById('auto-login-section').style.display = 'block';
-                    showCodeAndProceed(user);
-                } else {
-                    db.collection('users').doc(user.uid).get().then(doc => {
-                        if (doc.exists && doc.data().accessCode) {
-                            currentUserCode = doc.data().accessCode;
-                            userName = doc.data().name || 'Anonym';
-                            localStorage.setItem('userAccessCode', currentUserCode);
-                            localStorage.setItem('userName', userName);
-                            document.getElementById('name-input-section').style.display = 'none';
-                            document.getElementById('auto-login-section').style.display = 'block';
-                            showCodeAndProceed(user);
-                        }
-                    });
-                }
+                console.log('✓ User already logged in, redirecting...');
+                window.location.href = 'dashboard.html';
             }
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('user-name')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') startWithName(); });
-        });
-
-        document.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && document.getElementById('existing-code') === document.activeElement) loginWithCode();
         });
     </script>
 </body>
