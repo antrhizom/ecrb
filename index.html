@@ -5,174 +5,411 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urheberrecht Lern-App - Login</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Modern Card Design inspired by ECRC42 */
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 48px 40px;
+            max-width: 500px;
+            width: 90%;
+            margin: 20px;
+        }
+
+        .app-logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .app-logo-icon {
+            width: 80px;
+            height: 80px;
+            background: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+            margin-bottom: 16px;
+        }
+
+        .app-logo-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #667eea;
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #667eea;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .app-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin: 8px 0 0 0;
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #2d3748;
+        }
+
+        .option-card {
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .option-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+        }
+
+        .option-card.primary {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        }
+
+        .option-card.secondary {
+            border-color: #48bb78;
+            background: linear-gradient(135deg, #48bb7815 0%, #38a16915 100%);
+        }
+
+        .option-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .option-card.primary .option-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .option-card.secondary .option-icon {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0 0 4px 0;
+        }
+
+        .option-description {
+            font-size: 14px;
+            color: #718096;
+            margin: 0;
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f7fafc;
+            color: #667eea;
+            border: 2px solid #e2e8f0;
+            margin-top: 12px;
+        }
+
+        .btn-secondary:hover {
+            background: #edf2f7;
+        }
+
+        .code-display {
+            background: linear-gradient(135deg, #fef5e7 0%, #fdebd0 100%);
+            border: 2px solid #f39c12;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .code-display-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #d68910;
+            margin-bottom: 16px;
+        }
+
+        .code-value {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            color: #2d3748;
+            letter-spacing: 4px;
+            margin: 16px 0;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .success-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .greeting-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 32px 24px;
+            }
+            
+            .option-card {
+                padding: 20px;
+            }
+            
+            .code-value {
+                font-size: 24px;
+                letter-spacing: 2px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <div class="login-container">
-            <div class="login-header">
-                <div style="font-size: 48px; margin-bottom: 16px;">📚</div>
-                <h1>Urheberrecht Lern-App</h1>
-                <p class="subtitle">Schweizerisches Urheberrecht interaktiv lernen</p>
+    <div class="login-container">
+        <!-- App Logo -->
+        <div class="app-logo">
+            <div class="app-logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
             </div>
+            <h1 class="app-title">URHG-CH</h1>
+            <p class="app-subtitle">Urheberrecht Lern-App</p>
+        </div>
 
-            <!-- Erste Seite: Willkommen -->
-            <div id="welcome-section">
-                <div style="text-align: center; margin: 32px 0;">
-                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 16px;">
-                        Willkommen! 👋
-                    </h2>
-                    <p style="font-size: 14px; color: #666; margin-bottom: 24px;">
-                        Geben Sie Ihren Namen ein und wir erstellen Ihren persönlichen Zugang.
-                    </p>
-                </div>
-
-                <div class="form-group">
-                    <label for="user-name" class="form-label">Ihr Name (optional):</label>
-                    <input 
-                        type="text" 
-                        id="user-name" 
-                        class="form-input" 
-                        placeholder="z.B. Anna Müller"
-                        maxlength="50"
-                        autocomplete="name"
-                    >
-                    <p style="font-size: 12px; color: #888; margin-top: 8px;">
-                        Ihr Name erscheint auf dem Zertifikat. Sie können auch anonym bleiben.
-                    </p>
-                </div>
-
-                <button class="btn btn-primary btn-large" onclick="generateCredentials()" style="width: 100%; margin-top: 8px;">
-                    Zugang erstellen →
-                </button>
-
-                <div style="margin-top: 24px; text-align: center;">
-                    <p style="font-size: 13px; color: #666;">Bereits einen Zugang?</p>
-                    <button class="btn btn-secondary" onclick="showLoginForm()" style="margin-top: 8px;">
-                        Hier anmelden →
-                    </button>
+        <!-- Welcome Section -->
+        <div id="welcome-section">
+            <h2 class="welcome-title">Willkommen</h2>
+            
+            <div class="option-card primary" onclick="showRegisterForm()">
+                <div class="option-icon">👤</div>
+                <div class="option-content">
+                    <h3 class="option-title">Neu registrieren</h3>
+                    <p class="option-description">Erstelle einen neuen Account mit automatischem Code</p>
                 </div>
             </div>
 
-            <!-- Login-Formular -->
-            <div id="login-section" style="display: none;">
-                <div style="text-align: center; margin: 24px 0;">
-                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 16px;">
-                        Anmelden
-                    </h2>
-                </div>
-
-                <div class="form-group">
-                    <label for="login-email" class="form-label">Email:</label>
-                    <input 
-                        type="email" 
-                        id="login-email" 
-                        class="form-input" 
-                        placeholder="ihre-email@beispiel.com"
-                        autocomplete="email"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="login-password" class="form-label">Passwort:</label>
-                    <input 
-                        type="password" 
-                        id="login-password" 
-                        class="form-input" 
-                        placeholder="Ihr Passwort"
-                        autocomplete="current-password"
-                    >
-                </div>
-
-                <div id="login-error" class="error-message"></div>
-
-                <button class="btn btn-primary btn-large" onclick="loginWithCredentials()" style="width: 100%; margin-top: 8px;">
-                    Anmelden →
-                </button>
-
-                <div style="margin-top: 16px; text-align: center;">
-                    <button class="btn btn-secondary" onclick="showWelcome()" style="font-size: 13px;">
-                        ← Zurück
-                    </button>
+            <div class="option-card secondary" onclick="showLoginForm()">
+                <div class="option-icon">🔑</div>
+                <div class="option-content">
+                    <h3 class="option-title">Mit Code anmelden</h3>
+                    <p class="option-description">Ich habe bereits einen Zugangscode</p>
                 </div>
             </div>
 
-            <!-- Credentials anzeigen -->
-            <div id="credentials-section" style="display: none;">
-                <div style="text-align: center; margin-bottom: 24px;">
-                    <div style="font-size: 48px; margin-bottom: 16px;">✅</div>
-                    <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 8px;">
-                        Zugang erstellt!
-                    </h2>
-                    <p id="greeting-text" style="font-size: 16px; color: #333; font-weight: 600;"></p>
+            <div class="footer-info">
+                🎓 Schweizerisches Urheberrecht<br>
+                4 Module • Punktesystem • Zertifikat
+            </div>
+        </div>
+
+        <!-- Register Section -->
+        <div id="register-section" class="form-section">
+            <h2 class="welcome-title">Neu registrieren</h2>
+            
+            <div class="input-group">
+                <label class="input-label">Ihr Name (optional):</label>
+                <input 
+                    type="text" 
+                    id="user-name" 
+                    class="input-field" 
+                    placeholder="z.B. Anna Müller"
+                    maxlength="50"
+                    autocomplete="name"
+                >
+                <p style="font-size: 12px; color: #718096; margin-top: 6px;">
+                    Ihr Name erscheint auf dem Zertifikat
+                </p>
+            </div>
+
+            <button class="btn btn-primary" onclick="generateCode()">
+                ✨ Zugang erstellen
+            </button>
+            
+            <button class="btn btn-secondary" onclick="showWelcome()">
+                ← Zurück
+            </button>
+        </div>
+
+        <!-- Code Display Section -->
+        <div id="code-section" class="form-section">
+            <div style="text-align: center;">
+                <div class="success-icon">✅</div>
+                <p class="greeting-text" id="greeting-text"></p>
+            </div>
+
+            <div class="code-display">
+                <div class="code-display-title">
+                    ⚠️ Bitte speichern Sie diesen Code!
                 </div>
-
-                <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 8px; padding: 20px; margin: 24px 0;">
-                    <p style="font-weight: 600; color: #856404; margin-bottom: 16px; text-align: center;">
-                        ⚠️ Bitte speichern Sie diese Zugangsdaten!
-                    </p>
-
-                    <div class="form-group">
-                        <label class="form-label">Email:</label>
-                        <div style="display: flex; gap: 8px;">
-                            <input 
-                                type="text" 
-                                id="generated-email" 
-                                class="form-input" 
-                                readonly
-                                style="font-family: 'Courier New', monospace; flex: 1;"
-                            >
-                            <button class="btn btn-secondary" onclick="copyToClipboard('generated-email')" style="min-width: 100px;">
-                                📋 Kopieren
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label">Passwort:</label>
-                        <div style="display: flex; gap: 8px;">
-                            <input 
-                                type="text" 
-                                id="generated-password" 
-                                class="form-input" 
-                                readonly
-                                style="font-family: 'Courier New', monospace; flex: 1;"
-                            >
-                            <button class="btn btn-secondary" onclick="copyToClipboard('generated-password')" style="min-width: 100px;">
-                                📋 Kopieren
-                            </button>
-                        </div>
-                    </div>
-
-                    <p style="font-size: 12px; color: #856404; margin-top: 12px; text-align: center;">
-                        Sie benötigen diese Daten, um sich später wieder anzumelden.
-                    </p>
-                </div>
-
-                <button class="btn btn-primary btn-large" onclick="proceedToDashboard()" style="width: 100%;">
-                    Jetzt lernen starten! 🚀
+                <div class="code-value" id="display-code"></div>
+                <button class="btn btn-primary" onclick="copyCode()" style="margin-top: 16px;">
+                    📋 Code kopieren
                 </button>
             </div>
 
-            <!-- Loading -->
-            <div id="loading-section" style="display: none; text-align: center; padding: 40px;">
+            <p style="text-align: center; font-size: 14px; color: #718096; margin-bottom: 24px;">
+                Sie benötigen diesen Code, um sich später wieder anzumelden
+            </p>
+
+            <button class="btn btn-primary" onclick="proceedToDashboard()">
+                Jetzt lernen starten! 🚀
+            </button>
+        </div>
+
+        <!-- Login Section -->
+        <div id="login-section" class="form-section">
+            <h2 class="welcome-title">Mit Code anmelden</h2>
+            
+            <div class="input-group">
+                <label class="input-label">Ihr Zugangs-Code:</label>
+                <input 
+                    type="text" 
+                    id="login-code" 
+                    class="input-field" 
+                    placeholder="z.B. ABCD-1234-EFGH"
+                    style="font-family: 'Courier New', monospace; letter-spacing: 2px;"
+                    autocomplete="off"
+                >
+            </div>
+
+            <div id="login-error" style="color: #e53e3e; font-size: 14px; margin-bottom: 16px; display: none;"></div>
+
+            <button class="btn btn-primary" onclick="loginWithCode()">
+                🔓 Anmelden
+            </button>
+            
+            <button class="btn btn-secondary" onclick="showWelcome()">
+                ← Zurück
+            </button>
+        </div>
+
+        <!-- Loading Section -->
+        <div id="loading-section" class="form-section">
+            <div style="text-align: center; padding: 40px 0;">
                 <div style="font-size: 48px; margin-bottom: 16px;">⏳</div>
-                <p style="font-size: 16px; color: var(--zh-blue);">Einen Moment bitte...</p>
-            </div>
-
-            <!-- Info Box -->
-            <div class="login-info" style="margin-top: 24px; padding: 16px; background: #f5f5f5; border-radius: 8px; font-size: 13px; color: #666;">
-                <p style="margin-bottom: 8px;"><strong>ℹ️ Wie funktioniert's?</strong></p>
-                <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li><strong>Neu:</strong> Namen eingeben → Automatischer Zugang</li>
-                    <li><strong>Login:</strong> Mit Email & Passwort anmelden</li>
-                    <li>4 interaktive Module mit Punktesystem</li>
-                    <li>Zertifikat am Ende erhalten</li>
-                </ul>
+                <p style="font-size: 18px; color: #667eea; font-weight: 600;">Einen Moment bitte...</p>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <!-- Toast Notification -->
+    <div id="toast" style="
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #2d3748;
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        transition: transform 0.3s ease;
+        z-index: 9999;
+    "></div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -181,39 +418,60 @@
 
     <script>
         let userName = '';
-        let generatedEmail = '';
-        let generatedPassword = '';
+        let currentCode = '';
+        let currentEmail = '';
+        let currentPassword = '';
 
         // Navigation
         function showWelcome() {
-            document.getElementById('welcome-section').style.display = 'block';
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('credentials-section').style.display = 'none';
-            document.getElementById('loading-section').style.display = 'none';
+            hideAllSections();
+            document.getElementById('welcome-section').classList.add('active');
+        }
+
+        function showRegisterForm() {
+            hideAllSections();
+            document.getElementById('register-section').classList.add('active');
         }
 
         function showLoginForm() {
-            document.getElementById('welcome-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
-            document.getElementById('credentials-section').style.display = 'none';
-            document.getElementById('loading-section').style.display = 'none';
+            hideAllSections();
+            document.getElementById('login-section').classList.add('active');
+        }
+
+        function showCodeDisplay() {
+            hideAllSections();
+            document.getElementById('code-section').classList.add('active');
         }
 
         function showLoading() {
-            document.getElementById('welcome-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('credentials-section').style.display = 'none';
-            document.getElementById('loading-section').style.display = 'block';
+            hideAllSections();
+            document.getElementById('loading-section').classList.add('active');
         }
 
-        function showCredentials() {
-            document.getElementById('welcome-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('credentials-section').style.display = 'block';
-            document.getElementById('loading-section').style.display = 'none';
+        function hideAllSections() {
+            document.querySelectorAll('.form-section').forEach(section => {
+                section.classList.remove('active');
+            });
         }
 
-        // Helper: Generate random string
+        // Helper: Generate readable code (Format: ABCD-1234-EFGH)
+        function generateReadableCode() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Ohne I, O, 0, 1
+            const parts = [];
+            
+            // 3 Teile à 4 Zeichen
+            for (let i = 0; i < 3; i++) {
+                let part = '';
+                for (let j = 0; j < 4; j++) {
+                    part += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                parts.push(part);
+            }
+            
+            return parts.join('-');
+        }
+
+        // Helper: Generate random string for email/password
         function generateRandomString(length) {
             const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let result = '';
@@ -223,23 +481,27 @@
             return result;
         }
 
-        // Generate credentials and create user
-        async function generateCredentials() {
+        // Generate code and create user
+        async function generateCode() {
             try {
                 showLoading();
 
                 // Get name
                 userName = document.getElementById('user-name').value.trim() || 'Anonym';
 
-                // Generate email and password
+                // Generate readable code
+                currentCode = generateReadableCode();
+
+                // Generate email and password (INTERN - User sieht das nie!)
                 const randomId = generateRandomString(12);
-                generatedEmail = `user-${randomId}@urheberrecht-app.local`;
-                generatedPassword = generateRandomString(16);
+                currentEmail = `user-${randomId}@urhg.local`;
+                currentPassword = generateRandomString(20);
 
-                console.log('🔐 Creating user with email:', generatedEmail);
+                console.log('🔐 Creating user with code:', currentCode);
+                console.log('📧 Internal email:', currentEmail);
 
-                // Create Firebase user
-                const userCredential = await auth.createUserWithEmailAndPassword(generatedEmail, generatedPassword);
+                // Create Firebase user with email/password
+                const userCredential = await auth.createUserWithEmailAndPassword(currentEmail, currentPassword);
                 const user = userCredential.user;
 
                 console.log('✓ User created:', user.uid);
@@ -247,7 +509,9 @@
                 // Create user document in Firestore
                 await db.collection('users').doc(user.uid).set({
                     name: userName,
-                    email: generatedEmail,
+                    code: currentCode,              // User's visible code
+                    email: currentEmail,            // Internal
+                    password: currentPassword,      // Internal (for code login)
                     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                     lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
                     modules: {
@@ -260,75 +524,88 @@
                     overallProgress: 0
                 });
 
-                console.log('✓ User document created');
+                console.log('✓ User document created with code');
 
                 // Save to localStorage
                 localStorage.setItem('userName', userName);
                 localStorage.setItem('userId', user.uid);
+                localStorage.setItem('userCode', currentCode);
 
-                // Show credentials
-                document.getElementById('generated-email').value = generatedEmail;
-                document.getElementById('generated-password').value = generatedPassword;
+                // Show code to user
+                document.getElementById('display-code').textContent = currentCode;
                 document.getElementById('greeting-text').textContent = userName !== 'Anonym' 
                     ? `Hallo ${userName}! 👋` 
-                    : 'Ihr Zugang wurde erstellt!';
+                    : 'Zugang erfolgreich erstellt!';
 
-                showCredentials();
+                showCodeDisplay();
 
             } catch (error) {
-                console.error('❌ Error generating credentials:', error);
-                showWelcome();
+                console.error('❌ Error generating code:', error);
+                showRegisterForm();
                 
                 let errorMsg = 'Fehler beim Erstellen des Zugangs.';
                 if (error.code === 'auth/email-already-in-use') {
-                    errorMsg = 'Diese Email wird bereits verwendet. Bitte melden Sie sich an.';
+                    // Sehr unwahrscheinlich bei random IDs
+                    errorMsg = 'Fehler. Bitte erneut versuchen.';
                 }
                 
                 showToast(errorMsg);
             }
         }
 
-        // Login with credentials
-        async function loginWithCredentials() {
-            const email = document.getElementById('login-email').value.trim();
-            const password = document.getElementById('login-password').value;
+        // Login with code
+        async function loginWithCode() {
+            const code = document.getElementById('login-code').value.trim().toUpperCase();
             const errorDiv = document.getElementById('login-error');
 
-            if (!email || !password) {
-                errorDiv.textContent = 'Bitte Email und Passwort eingeben';
-                errorDiv.classList.add('show');
+            if (!code) {
+                errorDiv.textContent = 'Bitte Code eingeben';
+                errorDiv.style.display = 'block';
                 return;
             }
 
-            errorDiv.classList.remove('show');
+            errorDiv.style.display = 'none';
             showLoading();
 
             try {
-                console.log('🔐 Logging in with email:', email);
+                console.log('🔍 Searching for code:', code);
 
-                const userCredential = await auth.signInWithEmailAndPassword(email, password);
-                const user = userCredential.user;
+                // Search for code in Firestore
+                const snapshot = await db.collection('users')
+                    .where('code', '==', code)
+                    .limit(1)
+                    .get();
 
-                console.log('✓ Login successful:', user.uid);
+                if (snapshot.empty) {
+                    throw new Error('Code nicht gefunden');
+                }
+
+                const userDoc = snapshot.docs[0];
+                const userData = userDoc.data();
+
+                console.log('✓ Code found, logging in...');
+
+                // Login with stored email/password
+                const userCredential = await auth.signInWithEmailAndPassword(
+                    userData.email, 
+                    userData.password
+                );
+
+                console.log('✓ Login successful:', userCredential.user.uid);
 
                 // Update last login
-                await db.collection('users').doc(user.uid).update({
+                await db.collection('users').doc(userCredential.user.uid).update({
                     lastLogin: firebase.firestore.FieldValue.serverTimestamp()
                 });
 
-                // Load user data
-                const userDoc = await db.collection('users').doc(user.uid).get();
-                if (userDoc.exists) {
-                    const userData = userDoc.data();
-                    if (userData.name) {
-                        localStorage.setItem('userName', userData.name);
-                    }
-                }
-
-                localStorage.setItem('userId', user.uid);
+                // Save to localStorage
+                localStorage.setItem('userName', userData.name);
+                localStorage.setItem('userId', userCredential.user.uid);
+                localStorage.setItem('userCode', code);
 
                 console.log('✓ Redirecting to dashboard...');
                 showToast('✓ Erfolgreich angemeldet!');
+                
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
                 }, 800);
@@ -337,38 +614,30 @@
                 console.error('❌ Login error:', error);
                 showLoginForm();
 
-                let errorMsg = 'Email oder Passwort falsch.';
-                if (error.code === 'auth/user-not-found') {
-                    errorMsg = 'Kein Account gefunden. Bitte erstellen Sie einen neuen Zugang.';
+                let errorMsg = 'Ungültiger Code.';
+                if (error.message.includes('nicht gefunden')) {
+                    errorMsg = 'Code nicht gefunden. Bitte überprüfen Sie Ihre Eingabe.';
                 } else if (error.code === 'auth/wrong-password') {
-                    errorMsg = 'Falsches Passwort.';
-                } else if (error.code === 'auth/invalid-email') {
-                    errorMsg = 'Ungültige Email-Adresse.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    errorMsg = 'Zu viele Versuche. Bitte warten Sie einen Moment.';
+                    errorMsg = 'Interner Fehler. Bitte Support kontaktieren.';
+                } else if (error.code === 'auth/user-not-found') {
+                    errorMsg = 'Code nicht gefunden.';
                 }
 
                 errorDiv.textContent = errorMsg;
-                errorDiv.classList.add('show');
+                errorDiv.style.display = 'block';
             }
         }
 
-        // Proceed to dashboard
-        function proceedToDashboard() {
-            window.location.href = 'dashboard.html';
-        }
-
-        // Copy to clipboard
-        function copyToClipboard(elementId) {
-            const element = document.getElementById(elementId);
-            const text = element.value;
+        // Copy code to clipboard
+        function copyCode() {
+            const codeText = document.getElementById('display-code').textContent;
 
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(text)
-                    .then(() => showToast('✓ Kopiert!'))
-                    .catch(() => fallbackCopy(text));
+                navigator.clipboard.writeText(codeText)
+                    .then(() => showToast('✓ Code kopiert!'))
+                    .catch(() => fallbackCopy(codeText));
             } else {
-                fallbackCopy(text);
+                fallbackCopy(codeText);
             }
         }
 
@@ -381,33 +650,42 @@
             textarea.select();
             try {
                 document.execCommand('copy');
-                showToast('✓ Kopiert!');
+                showToast('✓ Code kopiert!');
             } catch (err) {
-                showToast('⚠️ Bitte manuell kopieren');
+                showToast('⚠️ Bitte Code manuell kopieren');
             }
             document.body.removeChild(textarea);
+        }
+
+        // Proceed to dashboard
+        function proceedToDashboard() {
+            window.location.href = 'dashboard.html';
         }
 
         // Toast notification
         function showToast(message) {
             const toast = document.getElementById('toast');
             toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+            toast.style.transform = 'translateX(-50%) translateY(0)';
+            
+            setTimeout(() => {
+                toast.style.transform = 'translateX(-50%) translateY(100px)';
+            }, 3000);
         }
 
         // Enter key support
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('user-name').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') generateCredentials();
+            document.getElementById('user-name')?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') generateCode();
             });
 
-            document.getElementById('login-email').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') document.getElementById('login-password').focus();
+            document.getElementById('login-code')?.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') loginWithCode();
             });
 
-            document.getElementById('login-password').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') loginWithCredentials();
+            // Auto-uppercase for code input
+            document.getElementById('login-code')?.addEventListener('input', (e) => {
+                e.target.value = e.target.value.toUpperCase();
             });
         });
 
@@ -418,6 +696,9 @@
                 window.location.href = 'dashboard.html';
             }
         });
+
+        // Initialize - show welcome
+        showWelcome();
     </script>
 </body>
 </html>
