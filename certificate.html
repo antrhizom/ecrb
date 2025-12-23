@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zertifikat - Urheberrecht Lern-App</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📚 Urheberrecht Lern-App</div>
+            <div class="user-info">
+                <span class="user-email">Lädt...</span>
+                <button class="logout-btn">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="certificate" id="certificate">
+            <div class="certificate-seal">🏆</div>
+            
+            <h1 class="certificate-title">Zertifikat</h1>
+            <p class="certificate-subtitle">Erfolgreicher Abschluss</p>
+            
+            <p style="margin: 24px 0; font-size: 16px;">
+                Hiermit wird bestätigt, dass
+            </p>
+            
+            <div class="certificate-recipient" id="recipient-name">Lädt...</div>
+            
+            <p style="margin: 24px 0; font-size: 16px; line-height: 1.8;">
+                die interaktive Lerneinheit<br>
+                <strong style="color: var(--zh-blue);">"Grundlagen des Schweizer Urheberrechts"</strong><br>
+                erfolgreich abgeschlossen hat.
+            </p>
+            
+            <div class="certificate-details">
+                <h3>Lerninhalte und Erfolge:</h3>
+                <ul id="modules-summary">
+                    <li>Lädt...</li>
+                </ul>
+                
+                <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--zh-border);">
+                    <p style="font-weight: 600; margin-bottom: 8px;">Gesamtergebnis:</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div style="text-align: center; padding: 12px; background: #e8f2ff; border-radius: 6px;">
+                            <div style="font-size: 28px; font-weight: 700; color: var(--zh-blue);" id="total-points">0</div>
+                            <div style="font-size: 12px; color: #666;">Gesamtpunkte</div>
+                        </div>
+                        <div style="text-align: center; padding: 12px; background: #e6f7e6; border-radius: 6px;">
+                            <div style="font-size: 28px; font-weight: 700; color: var(--zh-green);" id="completion-rate">100%</div>
+                            <div style="font-size: 12px; color: #666;">Abschlussquote</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="certificate-date" id="completion-date">
+                Abgeschlossen am: ...
+            </div>
+            
+            <div style="margin-top: 32px; text-align: center; font-size: 13px; color: #888; line-height: 1.8;">
+                <p>Dieses Zertifikat bestätigt die aktive Teilnahme an allen vier Modulen:</p>
+                <p><strong>Prinzipien Urheberrecht • Freie Werke • Ausnahmen zur Nutzung • Zitatrecht</strong></p>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 16px; justify-content: center; margin-top: 32px;">
+            <button class="btn btn-primary" onclick="window.print()">
+                🖨️ Zertifikat drucken
+            </button>
+            <a href="dashboard.html" class="btn btn-secondary">
+                ← Zurück zum Dashboard
+            </a>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        async function loadCertificateData() {
+            const certificateData = await generateCertificateData();
+            
+            if (!certificateData) {
+                alert('Fehler beim Laden der Zertifikatsdaten.');
+                window.location.href = 'dashboard.html';
+                return;
+            }
+            
+            // Set recipient name
+            document.getElementById('recipient-name').textContent = certificateData.email;
+            
+            // Set completion date
+            document.getElementById('completion-date').textContent = 
+                `Abgeschlossen am: ${certificateData.completionDate}`;
+            
+            // Build modules summary
+            const moduleNames = {
+                modul1: 'Modul 1: Prinzipien Urheberrecht',
+                modul2: 'Modul 2: Freie Werke',
+                modul3: 'Modul 3: Ausnahmen zur Nutzung',
+                modul4: 'Modul 4: Zitatrecht'
+            };
+            
+            const moduleDescriptions = {
+                modul1: 'Geistige Schöpfung, individueller Charakter, Schutzfristen verstanden',
+                modul2: 'Gemeinfreie Werke, amtliche Erlasse, Creative Commons Lizenzen kennengelernt',
+                modul3: 'Fair Use, privater Gebrauch, Parodie, Unterricht und Forschung angewendet',
+                modul4: 'Die drei Säulen des Zitatrechts: Zweck, Quelle, Umfang beherrscht'
+            };
+            
+            const modulesSummaryHTML = Object.keys(certificateData.modules)
+                .map(moduleId => {
+                    const module = certificateData.modules[moduleId];
+                    return `
+                        <li style="margin: 8px 0;">
+                            <strong style="color: var(--zh-blue);">${moduleNames[moduleId]}</strong>
+                            <span style="float: right; color: var(--zh-green); font-weight: 600;">${module.score} Punkte</span>
+                            <br>
+                            <span style="font-size: 12px; color: #666;">${moduleDescriptions[moduleId]}</span>
+                        </li>
+                    `;
+                }).join('');
+            
+            document.getElementById('modules-summary').innerHTML = modulesSummaryHTML;
+            
+            // Set total points
+            document.getElementById('total-points').textContent = certificateData.totalPoints;
+            
+            // Set completion rate
+            document.getElementById('completion-rate').textContent = 
+                certificateData.overallProgress + '%';
+        }
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await loadCertificateData();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>

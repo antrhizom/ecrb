@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 3: Ausnahmen zur Nutzung</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📚 Modul 3: Ausnahmen zur Nutzung</div>
+            <div class="user-info"><span class="user-email">Lädt...</span><button class="logout-btn">Abmelden</button></div>
+        </div>
+    </header>
+    <div class="progress-header">
+        <span>Modul-Fortschritt:</span>
+        <div class="progress-bar-container"><div class="progress-bar-fill" id="module-progress" style="width: 0%"></div></div>
+        <span class="progress-text" id="progress-text">0%</span>
+        <div class="points-display"><span>⭐</span><span class="points-value" id="module-points">0</span><span>/ 125 Punkte</span></div>
+    </div>
+    <main class="container">
+        <section class="card">
+            <h2 class="card-title">🎥 Video-Einführung</h2>
+            <p class="card-subtitle">Fair Use und erlaubte Nutzungen (5 Min.)</p>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="video-placeholder-icon">▶️</div>
+                    <div class="video-placeholder-text"><strong>Audio/Video: Ausnahmen</strong><br>Privater Gebrauch, Unterricht, Parodie, Wissenschaft</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="markVideoWatched()" style="width: 100%; margin-top: 16px;">✓ Video angeschaut</button>
+        </section>
+
+        <section class="visualization">
+            <h2 class="visualization-title">⚖️ Die wichtigsten Ausnahmebestimmungen</h2>
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">1️⃣ Privater Gebrauch (Art. 19 URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Erlaubt im engsten Kreis</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Kopien für sich selbst, Verwandte, enge Freunde</li>
+                        <li>Backup-Kopien, Format-Umwandlung</li>
+                        <li>Sharing in geschlossenen Gruppen</li>
+                    </ul>
+                    <div style="background: #ffe6e6; padding: 12px; border-radius: 6px; font-size: 12px;">⚠️ <strong>Nicht erlaubt:</strong> Veröffentlichung im Internet, Verkauf, gewerbliche Nutzung</div>
+                </div>
+            </div>
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">2️⃣ Unterricht und Forschung (Art. 19 Abs. 1 lit. b URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Erleichterte Nutzung für Bildung</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Nutzung in Unterricht und Schule</li>
+                        <li>Wissenschaftliche Forschung</li>
+                        <li>Interne Dokumentation</li>
+                    </ul>
+                    <div style="background: #e8f2ff; padding: 12px; border-radius: 6px; font-size: 12px;">💡 Achtung: Kommerzielle Weiterbildung hat strengere Regeln!</div>
+                </div>
+            </div>
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">3️⃣ Parodie und Satire (Art. 11 URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Kritische oder humoristische Auseinandersetzung</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Parodie muss erkennbar sein</li>
+                        <li>Bezug zum Original erforderlich</li>
+                        <li>Kein Ersatz für das Original</li>
+                    </ul>
+                    <div style="background: #fff9e6; padding: 12px; border-radius: 6px; font-size: 12px;">⚖️ Grenzen: Keine Verleumdung, keine Rufschädigung</div>
+                </div>
+            </div>
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">4️⃣ Berichterstattung (Art. 28 URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Nutzung für aktuelle Berichterstattung</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Tagesaktuelle Ereignisse</li>
+                        <li>Nur soweit für Berichterstattung nötig</li>
+                        <li>Quellenangabe erforderlich</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="scenario">
+            <h2 class="scenario-title">🎯 Branching-Szenario: Social Media Post</h2>
+            <div class="scenario-description">
+                Sie möchten auf Instagram einen Song aus einem aktuellen Film teilen. Der 30-Sekunden-Ausschnitt ist emotional und untermalt Ihren Reise-Post perfekt. Was tun Sie?
+            </div>
+            <div class="scenario-choices">
+                <button class="choice-btn" onclick="checkChoice(this, false, 1)">A) Einfach posten - ist ja nur 30 Sekunden und für private Zwecke</button>
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">B) Lizenz erwerben oder lizenzfreie Musik verwenden</button>
+                <button class="choice-btn" onclick="checkChoice(this, false, 1)">C) Posten mit #Werbung - dann ist es kommerziell und legal</button>
+            </div>
+            <div class="feedback" id="feedback-1"></div>
+        </section>
+
+        <section class="quiz-section">
+            <h2 class="quiz-title">📝 Wissenstest</h2>
+            <div class="quiz-question">
+                <p class="question-text">1. Dürfen Sie einen Film auf DVD für den Familienabend kopieren?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 1, '✅ Richtig! Privater Gebrauch im engsten Kreis (Familie) ist erlaubt.')">A) Ja, für private Zwecke erlaubt</button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 1, '❌ Falsch. Privater Gebrauch ist eine Ausnahme.')">B) Nein, immer verboten</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-1"></div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">2. Was ist bei einer Parodie zu beachten?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 2, '❌ Falsch. Der Bezug zum Original ist wichtig.')">A) Möglichst weit vom Original entfernt</button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 2, '✅ Richtig! Eine Parodie muss erkennbar auf das Original Bezug nehmen.')">B) Erkennbarer Bezug zum Original</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-2"></div>
+            </div>
+            <div class="quiz-question">
+                <p class="question-text">3. Dürfen Lehrpersonen Zeitungsartikel im Unterricht verteilen?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 3, '✅ Richtig! Unterricht ist eine Ausnahme (Art. 19 Abs. 1 lit. b URG).')">A) Ja, für Unterrichtszwecke</button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 3, '❌ Falsch. Es gibt eine Ausnahme für den Unterricht.')">B) Nein, nur mit Lizenz</button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-3"></div>
+            </div>
+        </section>
+
+        <div class="nav-footer">
+            <a href="../dashboard.html" class="btn btn-secondary">← Dashboard</a>
+            <button class="btn btn-success" id="complete-btn" onclick="completeModule()" style="display: none;">Modul abschließen →</button>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+        const MODULE_ID = 'modul3'; const MAX_POINTS = 125; let moduleScore = 0;
+        let interactions = { videoWatched: false, visualizations: 0, scenarioAnswered: false, quizAnswers: 0 };
+        function updateProgress() {
+            const c = (interactions.videoWatched ? 1 : 0) + interactions.visualizations + (interactions.scenarioAnswered ? 1 : 0) + interactions.quizAnswers;
+            const p = Math.min(100, Math.round((c / 8) * 100));
+            document.getElementById('module-progress').style.width = p + '%';
+            document.getElementById('progress-text').textContent = p + '%';
+            if (p >= 80) document.getElementById('complete-btn').style.display = 'inline-block';
+        }
+        function markVideoWatched() { if (!interactions.videoWatched) { interactions.videoWatched = true; moduleScore += 15; document.getElementById('module-points').textContent = moduleScore; showSuccessToast('+15 Punkte'); updateProgress(); }}
+        function toggleElement(el) { const was = el.classList.contains('active'); el.classList.toggle('active'); if (!was && interactions.visualizations < 4) { interactions.visualizations++; moduleScore += 10; document.getElementById('module-points').textContent = moduleScore; updateProgress(); }}
+        function checkChoice(btn, ok, n) { if (interactions.scenarioAnswered) return; document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true); btn.classList.add(ok ? 'correct' : 'incorrect'); const fb = document.getElementById('feedback-1'); fb.classList.add('show', ok ? 'correct' : 'incorrect'); fb.innerHTML = ok ? '✅ Richtig! Instagram-Posts sind öffentlich, nicht privat. Lizenz nötig!' : '❌ Falsch. Instagram-Posts sind öffentlich, der Song ist geschützt.'; if (ok) { moduleScore += 30; addPoints(30); } interactions.scenarioAnswered = true; document.getElementById('module-points').textContent = moduleScore; updateProgress(); }
+        function answerQuestion(btn, ok, n, txt) { btn.parentElement.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true); btn.classList.add('selected'); const fb = document.getElementById('quiz-feedback-' + n); fb.textContent = txt; fb.classList.add('show'); fb.style.color = ok ? '#00994d' : '#dc0018'; fb.style.fontWeight = '600'; if (ok && interactions.quizAnswers < 3) { interactions.quizAnswers++; moduleScore += 20; document.getElementById('module-points').textContent = moduleScore; addPoints(20); } updateProgress(); }
+        async function completeModule() { if (!confirm(`Modul abschließen mit ${moduleScore}/${MAX_POINTS} Punkten?`)) return; if (await saveModuleProgress(MODULE_ID, { completed: true, progress: 100, score: moduleScore, completedAt: new Date().toISOString() })) { showSuccessToast('🎉 Modul 3 abgeschlossen!'); setTimeout(() => window.location.href = '../dashboard.html', 1500); }}
+        document.querySelectorAll('.interactive-element').forEach(el => el.addEventListener('keypress', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggleElement(el); }}));
+    </script>
+</body>
+</html>

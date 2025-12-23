@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 1: Prinzipien Urheberrecht</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📚 Modul 1: Prinzipien Urheberrecht</div>
+            <div class="user-info">
+                <span class="user-email">Lädt...</span>
+                <button class="logout-btn">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-header">
+        <span class="progress-label">Modul-Fortschritt:</span>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="module-progress" style="width: 0%"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+        <div class="points-display">
+            <span>⭐</span>
+            <span class="points-value" id="module-points">0</span>
+            <span>/ 100 Punkte</span>
+        </div>
+    </div>
+
+    <main class="container">
+        <!-- Video Introduction -->
+        <section class="card" aria-labelledby="video-title">
+            <h2 id="video-title" class="card-title">🎥 Video-Einführung</h2>
+            <p class="card-subtitle">Zusammenfassung der wichtigsten Konzepte (5 Min.)</p>
+            
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="video-placeholder-icon">▶️</div>
+                    <div class="video-placeholder-text">
+                        <strong>Audio/Video wird hier eingefügt</strong><br>
+                        Zusammenfassung: Was ist eine geistige Schöpfung? Wann entsteht Schutz?
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn btn-primary" onclick="markVideoWatched()" style="width: 100%; margin-top: 16px;">
+                ✓ Video angeschaut - Weiter zum interaktiven Teil
+            </button>
+        </section>
+
+        <!-- Interactive Visualization -->
+        <section class="visualization" aria-labelledby="viz-title">
+            <h2 id="viz-title" class="visualization-title">🎯 Interaktiv: Die zwei Voraussetzungen des Urheberrechtsschutzes</h2>
+            <p style="font-size: 13px; margin-bottom: 20px; color: #666;">
+                Klicken Sie auf jede Voraussetzung, um mehr zu erfahren:
+            </p>
+
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button" aria-expanded="false">
+                <div class="interactive-element-title">1️⃣ Geistige Schöpfung</div>
+                <div class="interactive-element-content">
+                    <p><strong>Das Werk muss Ausdruck menschlicher Kreativität sein.</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>KI-generierte Inhalte ohne menschliche Schöpfung = KEIN Schutz</li>
+                        <li>Rein technische oder wissenschaftliche Inhalte = KEIN Schutz</li>
+                        <li>Menschliche kreative Leistung erforderlich</li>
+                    </ul>
+                    <div style="background: #e8f2ff; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        💡 <strong>Beispiel:</strong> Ein Computerprogramm ist geschützt, aber nur wenn ein Mensch es geschrieben hat - nicht wenn es von KI automatisch generiert wurde.
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button" aria-expanded="false">
+                <div class="interactive-element-title">2️⃣ Individueller Charakter</div>
+                <div class="interactive-element-content">
+                    <p><strong>Das Werk muss eine gewisse Originalität aufweisen.</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Persönliche Prägung des Urhebers erkennbar</li>
+                        <li>Nicht rein handwerklich oder schematisch</li>
+                        <li>Schöpfungshöhe muss erreicht sein</li>
+                    </ul>
+                    <div style="background: #fff9e6; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        ⚠️ <strong>Grenzfälle:</strong> Kurze Slogans, einfache Logos oder Standard-Formulierungen erreichen oft NICHT die Schöpfungshöhe!
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button" aria-expanded="false">
+                <div class="interactive-element-title">📸 Sonderfall: Fotografien (Art. 2 Abs. 3bis URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>ALLE Fotografien sind geschützt - auch ohne individuellen Charakter!</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Einfache Schnappschüsse: 50 Jahre Schutz (ab Herstellung)</li>
+                        <li>Kunstfotografien mit individuellem Charakter: 70 Jahre (nach Tod)</li>
+                        <li>Gilt auch für technische Produktfotos</li>
+                    </ul>
+                    <div style="background: #e6f7e6; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        ✓ <strong>Praxis-Tipp:</strong> Behandeln Sie JEDES Foto als geschützt, selbst wenn es "nur" ein Handy-Schnappschuss ist!
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scenario-Based Learning -->
+        <section class="scenario" aria-labelledby="scenario-title">
+            <h2 id="scenario-title" class="scenario-title">⚖️ Entscheidungsszenario: Website-Inhalte</h2>
+            <div class="scenario-description">
+                Sie erstellen eine Firmen-Website. Welche dieser Elemente sind urheberrechtlich geschützt und dürfen NICHT ohne Erlaubnis kopiert werden?
+            </div>
+            
+            <div class="scenario-choices">
+                <button class="choice-btn" onclick="checkChoice(this, false, 1)">
+                    A) Standard-Kontaktformular mit Feldern wie "Name", "E-Mail", "Nachricht"
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">
+                    B) Individuelle Blog-Artikel mit persönlichen Formulierungen und Analysen
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, false, 1)">
+                    C) Einfache Produktliste mit Namen und Preisen (z.B. "Laptop HP 15s - CHF 699")
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">
+                    D) Professionelle Produktfotos vom Fotografen
+                </button>
+            </div>
+            
+            <div class="feedback" id="feedback-1"></div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section class="quiz-section" aria-labelledby="quiz-title">
+            <h2 id="quiz-title" class="quiz-title">📝 Wissenstest: Prinzipien des Urheberrechts</h2>
+            
+            <div class="quiz-question">
+                <p class="question-text">1. Wann entsteht Urheberrechtsschutz in der Schweiz?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 1, '❌ Falsch. Urheberrechtsschutz entsteht automatisch mit der Schöpfung - keine Registrierung nötig!')">
+                        A) Nur nach Registrierung beim Amt
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 1, '✅ Richtig! Der Schutz entsteht automatisch im Moment der Schöpfung.')">
+                        B) Automatisch im Moment der Schöpfung
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 1, '❌ Falsch. Eine Veröffentlichung ist nicht erforderlich. Auch unveröffentlichte Werke sind geschützt!')">
+                        C) Erst nach Veröffentlichung
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-1"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="question-text">2. Wie lange dauert der Urheberrechtsschutz für literarische Werke?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 2, '❌ Falsch. Das wäre zu kurz. Die Schutzfrist ist länger.')">
+                        A) 50 Jahre nach Tod des Urhebers
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 2, '✅ Genau! 70 Jahre nach dem Tod des Urhebers (Art. 29 URG).')">
+                        B) 70 Jahre nach Tod des Urhebers
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 2, '❌ Falsch. Der Schutz erlischt irgendwann - er ist nicht ewig.')">
+                        C) Unbegrenzt / Ewig
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-2"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="question-text">3. Welches Element erreicht typischerweise KEINE Schöpfungshöhe?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 3, '❌ Nicht ganz. Ein Roman mit eigenem Stil hat definitiv individuellen Charakter.')">
+                        A) Ein Roman mit eigenem Schreibstil
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 3, '✅ Richtig! Kurze Slogans wie \"Just Do It\" sind meist zu kurz für Urheberrechtsschutz (aber evtl. markenrechtlich geschützt).')">
+                        B) Ein kurzer Werbe-Slogan wie "Just Do It"
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 3, '❌ Falsch. Original-Kompositionen sind klar geschützte Werke mit individuellem Charakter.')">
+                        C) Eine Original-Musikkomposition
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-3"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="question-text">4. Ein einfaches Handy-Foto von Ihrem Mittagessen - ist es geschützt?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 4, '❌ Falsch! Die Sonderregel für Fotos gilt für ALLE Fotos.')">
+                        A) Nein, weil es zu banal ist
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 4, '✅ Genau! Art. 2 Abs. 3bis URG schützt ALLE Fotografien für 50 Jahre, auch einfache Schnappschüsse.')">
+                        B) Ja, für 50 Jahre ab Herstellung
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 4, '❌ Falsch. Es gibt Schutz, aber nicht so lange. Nur Kunstfotografien mit individuellem Charakter haben 70 Jahre Schutz.')">
+                        C) Ja, für 70 Jahre nach Ihrem Tod
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-4"></div>
+            </div>
+        </section>
+
+        <!-- Navigation -->
+        <div class="nav-footer">
+            <a href="../dashboard.html" class="btn btn-secondary">← Zurück zum Dashboard</a>
+            <button class="btn btn-success" id="complete-btn" onclick="completeModule()" style="display: none;">
+                Modul abschließen und weiter →
+            </button>
+        </div>
+    </main>
+
+    <!-- Firebase & Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/common.js"></script>
+
+    <script>
+        const MODULE_ID = 'modul1';
+        const MAX_POINTS = 100;
+        let moduleScore = 0;
+        let interactions = {
+            videoWatched: false,
+            visualizations: 0,
+            scenarioAnswered: false,
+            quizAnswers: 0
+        };
+
+        function updateModuleProgress() {
+            const totalInteractions = 8; // 1 video + 3 viz + 1 scenario + 4 quiz = 9 total
+            const completed = 
+                (interactions.videoWatched ? 1 : 0) +
+                interactions.visualizations +
+                (interactions.scenarioAnswered ? 1 : 0) +
+                interactions.quizAnswers;
+            
+            const progress = Math.min(100, Math.round((completed / totalInteractions) * 100));
+            
+            document.getElementById('module-progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = progress + '%';
+            
+            // Show complete button when progress >= 80%
+            if (progress >= 80) {
+                document.getElementById('complete-btn').style.display = 'inline-block';
+            }
+        }
+
+        function markVideoWatched() {
+            if (!interactions.videoWatched) {
+                interactions.videoWatched = true;
+                moduleScore += 10;
+                document.getElementById('module-points').textContent = moduleScore;
+                showSuccessToast('✓ Video-Einführung abgeschlossen! +10 Punkte');
+                updateModuleProgress();
+            }
+        }
+
+        function toggleElement(element) {
+            const wasActive = element.classList.contains('active');
+            element.classList.toggle('active');
+            element.setAttribute('aria-expanded', !wasActive);
+            
+            if (!wasActive && interactions.visualizations < 3) {
+                interactions.visualizations++;
+                moduleScore += 5;
+                document.getElementById('module-points').textContent = moduleScore;
+                updateModuleProgress();
+            }
+        }
+
+        function checkChoice(btn, isCorrect, scenarioNum) {
+            if (interactions.scenarioAnswered) return;
+            
+            const buttons = document.querySelectorAll('.choice-btn');
+            buttons.forEach(b => b.disabled = true);
+            
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('incorrect');
+            }
+            
+            const feedback = document.getElementById('feedback-' + scenarioNum);
+            feedback.classList.add('show');
+            
+            if (isCorrect) {
+                feedback.classList.add('correct');
+                feedback.innerHTML = '✅ <strong>Richtig!</strong> Blog-Artikel und professionelle Fotos haben individuellen Charakter bzw. fallen unter die Foto-Sonderregel. Standard-Formulare und einfache Produktlisten erreichen keine Schöpfungshöhe.';
+                moduleScore += 15;
+                addPoints(15);
+            } else {
+                feedback.classList.add('incorrect');
+                feedback.innerHTML = '❌ <strong>Nicht ganz.</strong> Die richtige Antwort ist B und D. Blog-Artikel mit persönlichen Formulierungen und professionelle Fotos sind geschützt!';
+            }
+            
+            interactions.scenarioAnswered = true;
+            document.getElementById('module-points').textContent = moduleScore;
+            updateModuleProgress();
+        }
+
+        function answerQuestion(btn, isCorrect, questionNum, feedbackText) {
+            const buttons = btn.parentElement.querySelectorAll('.quiz-btn');
+            buttons.forEach(b => b.disabled = true);
+            
+            btn.classList.add('selected');
+            
+            const feedback = document.getElementById('quiz-feedback-' + questionNum);
+            feedback.textContent = feedbackText;
+            feedback.classList.add('show');
+            feedback.style.color = isCorrect ? '#00994d' : '#dc0018';
+            feedback.style.fontWeight = '600';
+            
+            if (isCorrect && interactions.quizAnswers < 4) {
+                interactions.quizAnswers++;
+                moduleScore += 15;
+                document.getElementById('module-points').textContent = moduleScore;
+                addPoints(15);
+            }
+            
+            updateModuleProgress();
+        }
+
+        async function completeModule() {
+            const confirmed = confirm(`Modul abschließen mit ${moduleScore} von ${MAX_POINTS} Punkten?`);
+            if (!confirmed) return;
+            
+            const success = await saveModuleProgress(MODULE_ID, {
+                completed: true,
+                progress: 100,
+                score: moduleScore,
+                completedAt: new Date().toISOString()
+            });
+            
+            if (success) {
+                showSuccessToast('🎉 Modul 1 abgeschlossen!');
+                setTimeout(() => {
+                    window.location.href = '../dashboard.html';
+                }, 1500);
+            }
+        }
+
+        // Enable keyboard navigation
+        document.querySelectorAll('.interactive-element').forEach(el => {
+            el.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleElement(el);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

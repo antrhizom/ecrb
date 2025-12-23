@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 2: Freie Werke</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">📚 Modul 2: Freie Werke</div>
+            <div class="user-info">
+                <span class="user-email">Lädt...</span>
+                <button class="logout-btn">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="progress-header">
+        <span class="progress-label">Modul-Fortschritt:</span>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" id="module-progress" style="width: 0%"></div>
+        </div>
+        <span class="progress-text" id="progress-text">0%</span>
+        <div class="points-display">
+            <span>⭐</span>
+            <span class="points-value" id="module-points">0</span>
+            <span>/ 75 Punkte</span>
+        </div>
+    </div>
+
+    <main class="container">
+        <section class="card">
+            <h2 class="card-title">🎥 Video-Einführung</h2>
+            <p class="card-subtitle">Welche Werke sind frei nutzbar? (4 Min.)</p>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="video-placeholder-icon">▶️</div>
+                    <div class="video-placeholder-text">
+                        <strong>Audio/Video: Freie Werke</strong><br>
+                        Gemeinfreie Werke, amtliche Erlasse, Creative Commons Lizenzen
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="markVideoWatched()" style="width: 100%; margin-top: 16px;">
+                ✓ Video angeschaut - Weiter
+            </button>
+        </section>
+
+        <section class="visualization">
+            <h2 class="visualization-title">🔓 Die drei Kategorien freier Werke</h2>
+            
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">1️⃣ Gemeinfreie Werke (Public Domain)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Werke, deren Schutzfrist abgelaufen ist</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>70 Jahre nach Tod des Urhebers (literarische Werke, Kunst)</li>
+                        <li>50 Jahre nach Tod (Computerprogramme)</li>
+                        <li>50 Jahre ab Herstellung (einfache Fotos)</li>
+                    </ul>
+                    <div style="background: #e6f7e6; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        💡 <strong>Beispiel:</strong> Werke von Mozart, Shakespeare, Van Gogh sind gemeinfrei - die Schutzfristen sind längst abgelaufen.
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">2️⃣ Amtliche Erlasse und Entscheidungen (Art. 5 URG)</div>
+                <div class="interactive-element-content">
+                    <p><strong>Behördliche Dokumente sind frei nutzbar</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>Gesetze, Verordnungen, Beschlüsse</li>
+                        <li>Gerichtsurteile und -entscheidungen</li>
+                        <li>Amtliche Übersetzungen dieser Texte</li>
+                    </ul>
+                    <div style="background: #fff9e6; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        ⚠️ <strong>Achtung:</strong> Kommentare und Analysen von Juristen zu Gesetzen sind NICHT frei - nur die amtlichen Texte selbst!
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)" tabindex="0" role="button">
+                <div class="interactive-element-title">3️⃣ Creative Commons Lizenzen</div>
+                <div class="interactive-element-content">
+                    <p><strong>Urheber erlauben freie Nutzung unter Bedingungen</strong></p>
+                    <ul style="margin: 12px 0; padding-left: 20px; line-height: 1.8;">
+                        <li>CC BY: Namensnennung erforderlich</li>
+                        <li>CC BY-SA: + gleiche Lizenz bei Weitergabe</li>
+                        <li>CC BY-NC: + keine kommerzielle Nutzung</li>
+                        <li>CC BY-ND: + keine Bearbeitung erlaubt</li>
+                    </ul>
+                    <div style="background: #e8f2ff; padding: 12px; border-radius: 6px; margin-top: 12px; font-size: 12px;">
+                        ✓ <strong>Wichtig:</strong> Immer die Lizenzbedingungen prüfen! Namensnennung ist fast immer erforderlich.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="scenario">
+            <h2 class="scenario-title">⚖️ Praxis-Szenario: Bildmaterial für Blogpost</h2>
+            <div class="scenario-description">
+                Sie schreiben einen Blog-Artikel über Schweizer Geschichte. Welche Bilder dürfen Sie ohne Erlaubnis nutzen?
+            </div>
+            <div class="scenario-choices">
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">
+                    A) Ein Gemälde von Ferdinand Hodler (1853-1918)
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, false, 1)">
+                    B) Ein aktuelles Foto eines Schweizer Fotografen mit ©-Vermerk
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">
+                    C) Der offizielle Text der Bundesverfassung
+                </button>
+                <button class="choice-btn" onclick="checkChoice(this, true, 1)">
+                    D) Ein Foto von Wikimedia Commons mit CC BY-SA Lizenz
+                </button>
+            </div>
+            <div class="feedback" id="feedback-1"></div>
+        </section>
+
+        <section class="quiz-section">
+            <h2 class="quiz-title">📝 Wissenstest: Freie Werke</h2>
+            
+            <div class="quiz-question">
+                <p class="question-text">1. Ab wann wird ein literarisches Werk gemeinfrei?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 1, '❌ Falsch. Die Schutzfrist ist länger.')">
+                        A) 50 Jahre nach Tod des Autors
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 1, '✅ Richtig! 70 Jahre nach dem Tod des Urhebers wird das Werk gemeinfrei.')">
+                        B) 70 Jahre nach Tod des Autors
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 1, '❌ Falsch. Werke werden nach Ablauf einer Frist gemeinfrei.')">
+                        C) Niemals
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-1"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="question-text">2. Dürfen Sie einen Schweizer Bundesgerichtsentscheid auf Ihrer Website veröffentlichen?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 2, '✅ Genau! Amtliche Erlasse und Entscheidungen sind frei nutzbar (Art. 5 URG).')">
+                        A) Ja, ohne Einschränkungen
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 2, '❌ Falsch. Gerichtsurteile sind amtliche Dokumente und frei nutzbar.')">
+                        B) Nein, nur mit Erlaubnis des Gerichts
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 2, '❌ Falsch. Eine Quellenangabe ist höflich, aber nicht rechtlich erforderlich bei amtlichen Erlassen.')">
+                        C) Nur mit Quellenangabe
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-2"></div>
+            </div>
+
+            <div class="quiz-question">
+                <p class="question-text">3. Was bedeutet die CC BY-NC Lizenz?</p>
+                <div class="quiz-options">
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 3, '❌ Falsch. NC steht für Non-Commercial.')">
+                        A) Namensnennung, keine Veränderungen
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, true, 3, '✅ Richtig! BY = Namensnennung, NC = Non-Commercial (keine kommerzielle Nutzung).')">
+                        B) Namensnennung, keine kommerzielle Nutzung
+                    </button>
+                    <button class="quiz-btn" onclick="answerQuestion(this, false, 3, '❌ Falsch. Das wäre CC BY-SA.')">
+                        C) Namensnennung, gleiche Lizenz weitergeben
+                    </button>
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback-3"></div>
+            </div>
+        </section>
+
+        <div class="nav-footer">
+            <a href="../dashboard.html" class="btn btn-secondary">← Dashboard</a>
+            <button class="btn btn-success" id="complete-btn" onclick="completeModule()" style="display: none;">
+                Modul abschließen →
+            </button>
+        </div>
+    </main>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="../js/firebase-config.js"></script>
+    <script src="../js/common.js"></script>
+    <script>
+        const MODULE_ID = 'modul2';
+        const MAX_POINTS = 75;
+        let moduleScore = 0;
+        let interactions = { videoWatched: false, visualizations: 0, scenarioAnswered: false, quizAnswers: 0 };
+
+        function updateModuleProgress() {
+            const completed = (interactions.videoWatched ? 1 : 0) + interactions.visualizations + (interactions.scenarioAnswered ? 1 : 0) + interactions.quizAnswers;
+            const progress = Math.min(100, Math.round((completed / 7) * 100));
+            document.getElementById('module-progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = progress + '%';
+            if (progress >= 80) document.getElementById('complete-btn').style.display = 'inline-block';
+        }
+
+        function markVideoWatched() {
+            if (!interactions.videoWatched) {
+                interactions.videoWatched = true;
+                moduleScore += 10;
+                document.getElementById('module-points').textContent = moduleScore;
+                showSuccessToast('✓ Video abgeschlossen! +10 Punkte');
+                updateModuleProgress();
+            }
+        }
+
+        function toggleElement(el) {
+            const wasActive = el.classList.contains('active');
+            el.classList.toggle('active');
+            if (!wasActive && interactions.visualizations < 3) {
+                interactions.visualizations++;
+                moduleScore += 5;
+                document.getElementById('module-points').textContent = moduleScore;
+                updateModuleProgress();
+            }
+        }
+
+        function checkChoice(btn, isCorrect, num) {
+            if (interactions.scenarioAnswered) return;
+            document.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            const fb = document.getElementById('feedback-1');
+            fb.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+            fb.innerHTML = isCorrect ? '✅ <strong>Richtig!</strong> Hodler (†1918), Bundesverfassung und CC BY-SA Bilder sind frei nutzbar. Das aktuelle ©-Foto nicht.' : '❌ Bitte wählen Sie alle freien Werke.';
+            if (isCorrect) { moduleScore += 15; addPoints(15); }
+            interactions.scenarioAnswered = true;
+            document.getElementById('module-points').textContent = moduleScore;
+            updateModuleProgress();
+        }
+
+        function answerQuestion(btn, isCorrect, num, text) {
+            btn.parentElement.querySelectorAll('.quiz-btn').forEach(b => b.disabled = true);
+            btn.classList.add('selected');
+            const fb = document.getElementById('quiz-feedback-' + num);
+            fb.textContent = text;
+            fb.classList.add('show');
+            fb.style.color = isCorrect ? '#00994d' : '#dc0018';
+            fb.style.fontWeight = '600';
+            if (isCorrect && interactions.quizAnswers < 3) {
+                interactions.quizAnswers++;
+                moduleScore += 10;
+                document.getElementById('module-points').textContent = moduleScore;
+                addPoints(10);
+            }
+            updateModuleProgress();
+        }
+
+        async function completeModule() {
+            if (!confirm(`Modul abschließen mit ${moduleScore} von ${MAX_POINTS} Punkten?`)) return;
+            if (await saveModuleProgress(MODULE_ID, { completed: true, progress: 100, score: moduleScore, completedAt: new Date().toISOString() })) {
+                showSuccessToast('🎉 Modul 2 abgeschlossen!');
+                setTimeout(() => window.location.href = '../dashboard.html', 1500);
+            }
+        }
+
+        document.querySelectorAll('.interactive-element').forEach(el => {
+            el.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleElement(el); }});
+        });
+    </script>
+</body>
+</html>

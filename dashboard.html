@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard - Urheberrecht Lern-App">
+    <title>Dashboard - Urheberrecht Lern-App</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-content">
+            <div class="logo">📚 Urheberrecht Lern-App</div>
+            <div class="user-info">
+                <span class="user-email">Lädt...</span>
+                <button class="logout-btn" aria-label="Abmelden">Abmelden</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-header" role="status" aria-label="Lernfortschritt">
+        <span class="progress-label">Gesamt-Fortschritt:</span>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width: 0%"></div>
+        </div>
+        <span class="progress-text">0%</span>
+        <div class="points-display" aria-label="Gesammelte Punkte">
+            <span>🏆</span>
+            <span class="points-value">0</span>
+            <span>Punkte</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container" role="main">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Grundlagen des Urheberrechts</h1>
+                <p class="card-subtitle">4 interaktive Module - Lernen Sie in Ihrem eigenen Tempo</p>
+            </div>
+
+            <div class="module-grid">
+                <!-- Module 1: Prinzipien Urheberrecht -->
+                <article class="module-card" data-module="modul1" onclick="goToModule('modul1')" role="article" tabindex="0" aria-labelledby="module1-title">
+                    <div class="module-number">1</div>
+                    <h2 class="module-title" id="module1-title">Prinzipien Urheberrecht</h2>
+                    <p class="module-description">
+                        Verstehen Sie die Grundlagen: Was ist eine geistige Schöpfung? Wann entsteht Urheberrechtsschutz? Lernen Sie die Voraussetzungen und Schutzfristen kennen.
+                    </p>
+                    <div class="module-meta">
+                        <span>⏱️ ~15 Min.</span>
+                        <span>🎯 100 Punkte</span>
+                        <span>📹 Video + Quiz</span>
+                    </div>
+                </article>
+
+                <!-- Module 2: Freie Werke -->
+                <article class="module-card" data-module="modul2" onclick="goToModule('modul2')" role="article" tabindex="0" aria-labelledby="module2-title">
+                    <div class="module-number">2</div>
+                    <h2 class="module-title" id="module2-title">Freie Werke</h2>
+                    <p class="module-description">
+                        Entdecken Sie, welche Werke frei nutzbar sind: Gemeinfreie Werke, amtliche Erlasse, Creative Commons. Praktische Szenarien zur sicheren Nutzung.
+                    </p>
+                    <div class="module-meta">
+                        <span>⏱️ ~12 Min.</span>
+                        <span>🎯 75 Punkte</span>
+                        <span>🎮 Interaktiv</span>
+                    </div>
+                </article>
+
+                <!-- Module 3: Ausnahmen -->
+                <article class="module-card" data-module="modul3" onclick="goToModule('modul3')" role="article" tabindex="0" aria-labelledby="module3-title">
+                    <div class="module-number">3</div>
+                    <h2 class="module-title" id="module3-title">Ausnahmen zur Nutzung</h2>
+                    <p class="module-description">
+                        Fair Use verstehen: Privater Gebrauch, Unterricht, Parodie. Wo sind die Grenzen? Entscheiden Sie in realistischen Branching-Szenarien.
+                    </p>
+                    <div class="module-meta">
+                        <span>⏱️ ~18 Min.</span>
+                        <span>🎯 125 Punkte</span>
+                        <span>⚖️ Szenarien</span>
+                    </div>
+                </article>
+
+                <!-- Module 4: Zitatrecht -->
+                <article class="module-card" data-module="modul4" onclick="goToModule('modul4')" role="article" tabindex="0" aria-labelledby="module4-title">
+                    <div class="module-number">4</div>
+                    <h2 class="module-title" id="module4-title">Zitatrecht</h2>
+                    <p class="module-description">
+                        Meistern Sie das Zitieren: Die drei Säulen des Zitatrechts, erlaubte Zitatzwecke, korrekte Quellenangabe. Praxisbeispiele aus verschiedenen Medientypen.
+                    </p>
+                    <div class="module-meta">
+                        <span>⏱️ ~16 Min.</span>
+                        <span>🎯 100 Punkte</span>
+                        <span>📝 Praxistest</span>
+                    </div>
+                </article>
+            </div>
+
+            <div id="completion-message" style="display: none; margin-top: 32px; padding: 24px; background: linear-gradient(135deg, #e6f7e6 0%, #f0fff0 100%); border: 2px solid #00994d; border-radius: 12px; text-align: center;">
+                <h2 style="color: #00994d; margin-bottom: 12px; font-size: 24px;">🎉 Glückwunsch!</h2>
+                <p style="margin-bottom: 20px; font-size: 16px;">Sie haben alle Module erfolgreich abgeschlossen!</p>
+                <a href="certificate.html" class="btn btn-success btn-large">Zertifikat anzeigen →</a>
+            </div>
+        </div>
+
+        <!-- Info Section -->
+        <div class="card">
+            <h2 style="font-size: 20px; color: var(--zh-blue); margin-bottom: 16px;">So funktioniert's</h2>
+            <div style="display: grid; gap: 16px;">
+                <div style="display: flex; gap: 16px; align-items: start;">
+                    <div style="font-size: 32px;">🎥</div>
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 6px; font-weight: 600;">1. Video-Einführung</h3>
+                        <p style="font-size: 13px; color: #666; line-height: 1.6;">Jedes Modul startet mit einer kompakten Video-Zusammenfassung (2-5 Min.), die Sie auf das Thema vorbereitet.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: start;">
+                    <div style="font-size: 32px;">🎮</div>
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 6px; font-weight: 600;">2. Interaktive Visualisierungen</h3>
+                        <p style="font-size: 13px; color: #666; line-height: 1.6;">Erkunden Sie die Konzepte aktiv durch klickbare Elemente, Szenarien und Entscheidungsbäume.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: start;">
+                    <div style="font-size: 32px;">✅</div>
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 6px; font-weight: 600;">3. Wissensprüfung</h3>
+                        <p style="font-size: 13px; color: #666; line-height: 1.6;">Testen Sie Ihr Verständnis mit sofortigem Feedback und sammeln Sie Punkte.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 16px; align-items: start;">
+                    <div style="font-size: 32px;">🏆</div>
+                    <div>
+                        <h3 style="font-size: 16px; margin-bottom: 6px; font-weight: 600;">4. Zertifikat</h3>
+                        <p style="font-size: 13px; color: #666; line-height: 1.6;">Nach Abschluss aller Module erhalten Sie ein Zertifikat mit Ihrer Lernzusammenfassung.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <!-- App Scripts -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/common.js"></script>
+
+    <script>
+        // Navigate to module
+        function goToModule(moduleId) {
+            window.location.href = `modules/${moduleId}.html`;
+        }
+
+        // Check if all modules are complete
+        async function checkCompletion() {
+            const allComplete = await checkAllModulesComplete();
+            if (allComplete) {
+                document.getElementById('completion-message').style.display = 'block';
+            }
+        }
+
+        // Load user progress and check completion
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await loadUserProgress(user.uid);
+                await checkCompletion();
+            }
+        });
+
+        // Enable keyboard navigation for module cards
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

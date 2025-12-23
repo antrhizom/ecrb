@@ -1,0 +1,27 @@
+{
+  "name": "urheberrecht-lernapp",
+  "version": "1.0.0",
+  "description": "Interaktive Lern-App zum Schweizer Urheberrecht mit Gamification und Firebase",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "deploy:vercel": "vercel --prod",
+    "deploy:firebase": "firebase deploy"
+  },
+  "keywords": [
+    "e-learning",
+    "urheberrecht",
+    "schweiz",
+    "gamification",
+    "firebase",
+    "interactive-learning"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/urheberrecht-lernapp.git"
+  }
+}
