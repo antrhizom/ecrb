@@ -4,20 +4,39 @@
 auth.onAuthStateChanged((user) => {
     if (user) {
         // User is signed in
-        console.log('User logged in:', user.email);
+        console.log('User logged in:', user.uid);
         
-        // Update UI with user info
+        // Update UI with user code
+        const userCode = localStorage.getItem('userAccessCode');
+        const userCodeElements = document.querySelectorAll('.user-code-display, #header-user-code');
+        userCodeElements.forEach(el => {
+            if (userCode) {
+                el.textContent = userCode;
+            }
+        });
+        
+        // Legacy: Update email elements if any
         const userEmailElements = document.querySelectorAll('.user-email');
         userEmailElements.forEach(el => {
-            el.textContent = user.email;
+            el.textContent = userCode || 'Anonymous User';
         });
         
         // Load user progress
         loadUserProgress(user.uid);
     } else {
-        // User is signed out - redirect to login
-        if (!window.location.pathname.includes('index.html') && 
+        // User is signed out - check for saved code
+        const savedCode = localStorage.getItem('userAccessCode');
+        const savedUserId = localStorage.getItem('userId');
+        
+        if (savedCode && savedUserId && 
+            !window.location.pathname.includes('index.html') && 
             !window.location.pathname.endsWith('/')) {
+            // User has code but no Firebase session - load data directly
+            console.log('Loading with saved code:', savedCode);
+            loadUserProgress(savedUserId);
+        } else if (!window.location.pathname.includes('index.html') && 
+                   !window.location.pathname.endsWith('/')) {
+            // No code, redirect to login
             window.location.href = '/index.html';
         }
     }
@@ -25,12 +44,18 @@ auth.onAuthStateChanged((user) => {
 
 // Logout Function
 function logout() {
-    auth.signOut().then(() => {
-        window.location.href = '/index.html';
-    }).catch((error) => {
-        console.error('Logout error:', error);
-        alert('Fehler beim Ausloggen. Bitte versuchen Sie es erneut.');
-    });
+    const userCode = localStorage.getItem('userAccessCode');
+    const confirmMsg = `Wirklich abmelden?\n\nIhr Code: ${userCode}\n\n(Code bleibt gespeichert für späteren Login)`;
+    
+    if (confirm(confirmMsg)) {
+        auth.signOut().then(() => {
+            // Code bleibt in localStorage
+            window.location.href = '/index.html';
+        }).catch((error) => {
+            console.error('Logout error:', error);
+            alert('Fehler beim Ausloggen. Bitte versuchen Sie es erneut.');
+        });
+    }
 }
 
 // Load User Progress from Firestore

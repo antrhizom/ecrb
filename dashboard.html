@@ -13,8 +13,8 @@
         <div class="header-content">
             <div class="logo">📚 Urheberrecht Lern-App</div>
             <div class="user-info">
-                <span class="user-email">Lädt...</span>
-                <button class="logout-btn" aria-label="Abmelden">Abmelden</button>
+                <span class="user-code-display" style="font-family: 'Courier New', monospace; font-size: 12px;" title="Ihr Zugangs-Code">🔑 <span id="header-user-code">Lädt...</span></span>
+                <button class="logout-btn" aria-label="Abmelden" onclick="logout()">Abmelden</button>
             </div>
         </div>
     </header>
@@ -168,8 +168,35 @@
         // Load user progress and check completion
         auth.onAuthStateChanged(async (user) => {
             if (user) {
+                // Zeige User-Code im Header
+                const userCode = localStorage.getItem('userAccessCode') || 'Kein Code';
+                document.getElementById('header-user-code').textContent = userCode;
+                
                 await loadUserProgress(user.uid);
                 await checkCompletion();
+            } else {
+                // Nicht eingeloggt - prüfe ob Code in localStorage
+                const savedCode = localStorage.getItem('userAccessCode');
+                const savedUserId = localStorage.getItem('userId');
+                
+                if (savedCode && savedUserId) {
+                    // User hat Code, aber nicht Firebase-Auth - hole Daten direkt
+                    document.getElementById('header-user-code').textContent = savedCode;
+                    try {
+                        const userDoc = await db.collection('users').doc(savedUserId).get();
+                        if (userDoc.exists) {
+                            const data = userDoc.data();
+                            updateProgressDisplay(data);
+                            await checkCompletion();
+                            return;
+                        }
+                    } catch (error) {
+                        console.error('Error loading user data:', error);
+                    }
+                }
+                
+                // Kein Code oder Fehler - zurück zum Login
+                window.location.href = 'index.html';
             }
         });
 
