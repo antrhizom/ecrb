@@ -42,7 +42,7 @@ auth.onAuthStateChanged((user) => {
         } else if (!window.location.pathname.includes('index.html') && 
                    !window.location.pathname.endsWith('/')) {
             // No code, redirect to login
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         }
     }
 });
@@ -80,7 +80,7 @@ function logout() {
     if (confirm(confirmMsg)) {
         auth.signOut().then(() => {
             // Code bleibt in localStorage
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         }).catch((error) => {
             console.error('Logout error:', error);
             alert('Fehler beim Ausloggen. Bitte versuchen Sie es erneut.');
