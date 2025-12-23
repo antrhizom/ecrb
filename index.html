@@ -16,8 +16,35 @@
                 <p class="login-subtitle">Schweizer Urheberrecht interaktiv lernen</p>
             </div>
 
+            <!-- Code eingeben für Rückkehr - JETZT ZUERST! -->
+            <div id="existing-code-section">
+                <details style="border: 2px solid var(--zh-blue); border-radius: 8px; padding: 16px; background: var(--zh-gray-light); margin-bottom: 24px;">
+                    <summary style="cursor: pointer; font-weight: 600; font-size: 15px; color: var(--zh-blue);">
+                        📱 Bereits einen Code? Hier anmelden →
+                    </summary>
+                    <div style="margin-top: 16px;">
+                        <label for="existing-code" class="form-label">Ihr Zugangs-Code:</label>
+                        <input 
+                            type="text" 
+                            id="existing-code" 
+                            class="form-input" 
+                            placeholder="z.B. 7aK9mP2xQ5-42"
+                            style="font-family: 'Courier New', monospace; letter-spacing: 1px;"
+                        >
+                        <button class="btn btn-primary" onclick="loginWithCode()" style="width: 100%; margin-top: 12px;">
+                            Mit Code anmelden →
+                        </button>
+                        <div id="code-error" class="error-message"></div>
+                    </div>
+                </details>
+            </div>
+
             <!-- Namen eingeben Bereich -->
             <div id="name-input-section">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <p style="font-size: 14px; color: #666;">Oder neu starten:</p>
+                </div>
+                
                 <div style="margin: 24px 0;">
                     <h2 style="font-size: 18px; color: var(--zh-blue); margin-bottom: 16px; text-align: center;">
                         Willkommen! 👋
@@ -42,7 +69,7 @@
                     </div>
 
                     <button class="btn btn-primary btn-large" onclick="startWithName()" style="width: 100%; margin-top: 8px;">
-                        Weiter →
+                        Neu starten →
                     </button>
                 </div>
             </div>
@@ -79,40 +106,12 @@
                 </button>
             </div>
 
-            <!-- Code eingeben für Rückkehr -->
-            <div id="return-login-section" style="display: none; margin-top: 32px;">
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <p style="font-size: 14px; color: #666;">Oder</p>
-                </div>
-                
-                <details style="border: 1px solid var(--zh-border); border-radius: 8px; padding: 16px; background: var(--zh-gray-light);">
-                    <summary style="cursor: pointer; font-weight: 600; font-size: 14px; color: var(--zh-blue);">
-                        Bereits einen Code? Hier fortfahren →
-                    </summary>
-                    <div style="margin-top: 16px;">
-                        <label for="existing-code" class="form-label">Ihr Zugangs-Code:</label>
-                        <input 
-                            type="text" 
-                            id="existing-code" 
-                            class="form-input" 
-                            placeholder="z.B. 7aK9mP2xQ5-42"
-                            style="font-family: 'Courier New', monospace; letter-spacing: 1px;"
-                        >
-                        <button class="btn btn-primary" onclick="loginWithCode()" style="width: 100%; margin-top: 12px;">
-                            Mit Code anmelden →
-                        </button>
-                        <div id="code-error" class="error-message"></div>
-                    </div>
-                </details>
-            </div>
-
             <!-- Info Box -->
             <div class="login-info" style="margin-top: 24px; padding: 16px; background: #f5f5f5; border-radius: 8px; font-size: 13px; color: #666;">
                 <p style="margin-bottom: 8px;"><strong>ℹ️ Wie funktioniert's?</strong></p>
                 <ul style="margin-left: 20px; line-height: 1.8;">
-                    <li>Namen eingeben (optional)</li>
-                    <li>Automatischer Login - kein Passwort nötig</li>
-                    <li>Sie erhalten einen persönlichen Code</li>
+                    <li><strong>Mit Code:</strong> Geben Sie Ihren Code oben ein</li>
+                    <li><strong>Neu starten:</strong> Namen eingeben (optional) und loslegen</li>
                     <li>4 Module, Punktesystem, Zertifikat</li>
                 </ul>
             </div>
@@ -220,7 +219,7 @@
         function showCodeAndProceed(user) {
             document.getElementById('auto-login-section').style.display = 'none';
             document.getElementById('code-display-section').style.display = 'block';
-            document.getElementById('return-login-section').style.display = 'block';
+            // existing-code-section bleibt sichtbar für einfachen Zugriff
             
             document.getElementById('user-code').textContent = currentUserCode;
             
