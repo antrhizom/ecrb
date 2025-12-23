@@ -255,43 +255,104 @@
         async function loginWithCode() {
             const code = document.getElementById('existing-code').value.trim();
             const errorDiv = document.getElementById('code-error');
-            if (!code) { errorDiv.textContent = 'Bitte Code eingeben'; errorDiv.classList.add('show'); return; }
+            if (!code) { 
+                errorDiv.textContent = 'Bitte Code eingeben'; 
+                errorDiv.classList.add('show'); 
+                return; 
+            }
 
             const loginBtn = event.target;
             loginBtn.disabled = true;
             loginBtn.textContent = 'Anmeldung läuft...';
 
             try {
-                if (!auth.currentUser) await auth.signInAnonymously();
+                // SCHRITT 1: Anonymous Login GARANTIEREN
+                console.log('🔐 Step 1: Checking auth...');
+                
+                if (!auth.currentUser) {
+                    console.log('⚠️ Not logged in, signing in anonymously...');
+                    const userCredential = await auth.signInAnonymously();
+                    console.log('✓ Anonymous login successful:', userCredential.user.uid);
+                    
+                    // WICHTIG: Kurz warten damit Firebase Auth sich setzt
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                } else {
+                    console.log('✓ Already logged in:', auth.currentUser.uid);
+                }
+                
+                // SCHRITT 2: Nochmal prüfen ob Auth wirklich da ist
+                if (!auth.currentUser) {
+                    throw new Error('Authentication failed - please reload page');
+                }
+                
+                // SCHRITT 3: Code suchen (JETZT mit Auth!)
+                console.log('🔍 Step 2: Searching for code:', code);
                 const usersRef = db.collection('users');
                 const snapshot = await usersRef.where('accessCode', '==', code).limit(1).get();
-                if (snapshot.empty) throw new Error('Code nicht gefunden');
+                
+                console.log('📊 Search results:', snapshot.size);
+                
+                if (snapshot.empty) {
+                    throw new Error('Code nicht gefunden');
+                }
 
+                // SCHRITT 4: User-Daten laden
                 const userDoc = snapshot.docs[0];
                 const userId = userDoc.id;
                 const userData = userDoc.data();
+                
+                console.log('✓ User found:', userId);
 
+                // SCHRITT 5: Daten speichern
                 localStorage.setItem('userAccessCode', code);
                 localStorage.setItem('userId', userId);
-                if (userData.name) localStorage.setItem('userName', userData.name);
+                if (userData.name) {
+                    localStorage.setItem('userName', userData.name);
+                    console.log('✓ Name loaded:', userData.name);
+                }
                 currentUserCode = code;
 
-                await db.collection('users').doc(userId).update({ lastLogin: firebase.firestore.FieldValue.serverTimestamp() });
+                // SCHRITT 6: Last login updaten
+                await db.collection('users').doc(userId).update({ 
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
+                });
+                
+                console.log('✓ Login successful!');
 
+                // SCHRITT 7: Weiterleiten
                 showToast('✓ Erfolgreich angemeldet!');
                 setTimeout(() => window.location.href = 'dashboard.html', 800);
 
             } catch (error) {
-                console.error('Login with code error:', error);
+                console.error('❌ Login with code error:', error);
+                console.error('Error details:', {
+                    code: error.code,
+                    message: error.message,
+                    stack: error.stack
+                });
+                
                 let errorMsg = 'Ungültiger Code oder Verbindungsfehler';
-                if (error.code === 'permission-denied') errorMsg = 'Berechtigungsfehler. Prüfen Sie Firestore Rules.';
-                else if (error.message.includes('nicht gefunden')) errorMsg = 'Code nicht gefunden.';
+                
+                if (error.code === 'permission-denied') {
+                    errorMsg = '🔒 Berechtigungsfehler!\n\nBitte prüfen:\n1. Firestore Rules gesetzt?\n2. Anonymous Auth aktiviert?';
+                    console.error('🔒 PERMISSION DENIED - Check Firebase Rules!');
+                } else if (error.code === 'failed-precondition' || error.message.includes('index')) {
+                    errorMsg = '📊 Index fehlt!\n\nFirestore Index muss erstellt werden.\nBitte Console prüfen für Link.';
+                    console.error('📊 INDEX REQUIRED - Check console for link!');
+                } else if (error.message.includes('nicht gefunden')) {
+                    errorMsg = '❌ Code nicht gefunden.\n\nBitte Code prüfen:\n- Richtig eingegeben?\n- Bindestrich vorhanden?';
+                } else if (error.message.includes('Authentication failed')) {
+                    errorMsg = '⚠️ Authentication fehlgeschlagen.\n\nBitte Seite neu laden.';
+                }
                 
                 errorDiv.textContent = errorMsg;
                 errorDiv.classList.add('show');
+                errorDiv.style.whiteSpace = 'pre-line'; // Für Zeilenumbrüche
+                
                 loginBtn.disabled = false;
                 loginBtn.textContent = 'Mit Code anmelden →';
-                setTimeout(() => errorDiv.classList.remove('show'), 5000);
+                
+                setTimeout(() => errorDiv.classList.remove('show'), 8000);
             }
         }
 
