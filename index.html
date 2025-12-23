@@ -81,6 +81,8 @@
             display: flex;
             align-items: center;
             gap: 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .option-card:hover {
@@ -570,11 +572,22 @@
             try {
                 console.log('🔍 Searching for code:', code);
 
+                // WICHTIG: Erst anonymous einloggen für Firestore-Zugriff
+                if (!auth.currentUser) {
+                    console.log('⚠️ Not authenticated, signing in anonymously first...');
+                    await auth.signInAnonymously();
+                    console.log('✓ Anonymous auth successful');
+                    // Kurz warten
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
+
                 // Search for code in Firestore
                 const snapshot = await db.collection('users')
                     .where('code', '==', code)
                     .limit(1)
                     .get();
+
+                console.log('📊 Search result:', snapshot.size, 'documents found');
 
                 if (snapshot.empty) {
                     throw new Error('Code nicht gefunden');
@@ -583,9 +596,12 @@
                 const userDoc = snapshot.docs[0];
                 const userData = userDoc.data();
 
-                console.log('✓ Code found, logging in...');
+                console.log('✓ Code found, logging in with email/password...');
 
-                // Login with stored email/password
+                // Erst ausloggen vom anonymous user
+                await auth.signOut();
+                
+                // Dann mit echten Credentials einloggen
                 const userCredential = await auth.signInWithEmailAndPassword(
                     userData.email, 
                     userData.password
@@ -612,11 +628,20 @@
 
             } catch (error) {
                 console.error('❌ Login error:', error);
+                console.error('Error code:', error.code);
+                console.error('Error message:', error.message);
                 showLoginForm();
 
                 let errorMsg = 'Ungültiger Code.';
+                
                 if (error.message.includes('nicht gefunden')) {
                     errorMsg = 'Code nicht gefunden. Bitte überprüfen Sie Ihre Eingabe.';
+                } else if (error.code === 'failed-precondition' || error.message.includes('index')) {
+                    errorMsg = 'Firestore Index fehlt. Bitte Console prüfen für Link zum Erstellen.';
+                    console.error('📊 INDEX REQUIRED - Check console for index creation link!');
+                } else if (error.code === 'permission-denied') {
+                    errorMsg = 'Berechtigungsfehler. Bitte Firebase Rules prüfen.';
+                    console.error('🔒 PERMISSION DENIED - Check Firestore Rules!');
                 } else if (error.code === 'auth/wrong-password') {
                     errorMsg = 'Interner Fehler. Bitte Support kontaktieren.';
                 } else if (error.code === 'auth/user-not-found') {
