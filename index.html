@@ -178,6 +178,8 @@
                 const userDoc = await userRef.get();
 
                 if (!userDoc.exists) {
+                    // NEUER USER
+                    console.log('📝 Creating new user with name:', userName || 'Anonym');
                     await userRef.set({
                         name: userName || 'Anonym',
                         accessCode: currentUserCode,
@@ -193,19 +195,46 @@
                         overallProgress: 0
                     });
                 } else {
-                    const updateData = { lastLogin: firebase.firestore.FieldValue.serverTimestamp() };
-                    if (userName) updateData.name = userName;
+                    // EXISTIERENDER USER
+                    const data = userDoc.data();
+                    console.log('👤 Existing user, checking data...');
+                    
+                    const updateData = { 
+                        lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
+                    };
+                    
+                    // MIGRATION: Alte User haben "email", neue brauchen "name"
+                    if (!data.name) {
+                        console.log('⚠️ Old user data detected, migrating...');
+                        // Wenn User gerade Namen eingegeben hat, nutze den
+                        // Sonst "Anonym"
+                        updateData.name = userName || 'Anonym';
+                        console.log('✓ Setting name to:', updateData.name);
+                    } else if (userName && data.name !== userName) {
+                        // User hat neuen Namen eingegeben
+                        updateData.name = userName;
+                        console.log('✓ Updating name to:', userName);
+                    }
+                    
+                    // Entferne altes email-Feld falls vorhanden
+                    if (data.email !== undefined) {
+                        console.log('🗑️ Removing old email field');
+                        updateData.email = firebase.firestore.FieldValue.delete();
+                    }
+                    
                     await userRef.update(updateData);
                     
-                    const data = userDoc.data();
+                    // Code laden
                     if (data.accessCode) {
                         currentUserCode = data.accessCode;
                         localStorage.setItem('userAccessCode', currentUserCode);
                     }
-                    if (data.name) {
-                        userName = data.name;
-                        localStorage.setItem('userName', data.name);
-                    }
+                    
+                    // Name laden (neu gesetzter oder existierender)
+                    const updatedName = updateData.name || data.name || 'Anonym';
+                    userName = updatedName;
+                    localStorage.setItem('userName', updatedName);
+                    console.log('✓ Name loaded:', userName);
                 }
 
                 showCodeAndProceed(user);
@@ -296,26 +325,43 @@
                     throw new Error('Code nicht gefunden');
                 }
 
-                // SCHRITT 4: User-Daten laden
+                // SCHRITT 4: User-Daten laden & Migration
                 const userDoc = snapshot.docs[0];
                 const userId = userDoc.id;
                 const userData = userDoc.data();
                 
                 console.log('✓ User found:', userId);
+                console.log('📊 User data:', userData);
 
-                // SCHRITT 5: Daten speichern
+                // SCHRITT 5: Daten speichern & Migration
                 localStorage.setItem('userAccessCode', code);
                 localStorage.setItem('userId', userId);
-                if (userData.name) {
+                
+                // MIGRATION: Alte User reparieren
+                const updateData = { 
+                    lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
+                };
+                
+                // Wenn kein Name existiert, setze "Anonym"
+                if (!userData.name) {
+                    console.log('⚠️ Old user data detected, setting name to "Anonym"');
+                    updateData.name = 'Anonym';
+                    localStorage.setItem('userName', 'Anonym');
+                } else {
                     localStorage.setItem('userName', userData.name);
                     console.log('✓ Name loaded:', userData.name);
                 }
+                
+                // Entferne altes email-Feld falls vorhanden
+                if (userData.email !== undefined) {
+                    console.log('🗑️ Removing old email field');
+                    updateData.email = firebase.firestore.FieldValue.delete();
+                }
+                
                 currentUserCode = code;
 
-                // SCHRITT 6: Last login updaten
-                await db.collection('users').doc(userId).update({ 
-                    lastLogin: firebase.firestore.FieldValue.serverTimestamp() 
-                });
+                // SCHRITT 6: Last login updaten (+ Migration)
+                await db.collection('users').doc(userId).update(updateData);
                 
                 console.log('✓ Login successful!');
 
