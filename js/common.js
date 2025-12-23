@@ -6,20 +6,21 @@ auth.onAuthStateChanged((user) => {
         // User is signed in
         console.log('User logged in:', user.uid);
         
-        // Update UI with user code
-        const userCode = localStorage.getItem('userAccessCode');
-        const userCodeElements = document.querySelectorAll('.user-code-display, #header-user-code');
-        userCodeElements.forEach(el => {
-            if (userCode) {
-                el.textContent = userCode;
-            }
-        });
+        // Load name from localStorage or Firestore
+        let userName = localStorage.getItem('userName');
         
-        // Legacy: Update email elements if any
-        const userEmailElements = document.querySelectorAll('.user-email');
-        userEmailElements.forEach(el => {
-            el.textContent = userCode || 'Anonymous User';
-        });
+        if (!userName) {
+            // Try to load from Firestore
+            db.collection('users').doc(user.uid).get().then(doc => {
+                if (doc.exists && doc.data().name) {
+                    userName = doc.data().name;
+                    localStorage.setItem('userName', userName);
+                    updateUserDisplay(userName);
+                }
+            });
+        } else {
+            updateUserDisplay(userName);
+        }
         
         // Load user progress
         loadUserProgress(user.uid);
@@ -27,12 +28,16 @@ auth.onAuthStateChanged((user) => {
         // User is signed out - check for saved code
         const savedCode = localStorage.getItem('userAccessCode');
         const savedUserId = localStorage.getItem('userId');
+        const savedName = localStorage.getItem('userName');
         
         if (savedCode && savedUserId && 
             !window.location.pathname.includes('index.html') && 
             !window.location.pathname.endsWith('/')) {
             // User has code but no Firebase session - load data directly
             console.log('Loading with saved code:', savedCode);
+            if (savedName) {
+                updateUserDisplay(savedName);
+            }
             loadUserProgress(savedUserId);
         } else if (!window.location.pathname.includes('index.html') && 
                    !window.location.pathname.endsWith('/')) {
@@ -41,6 +46,28 @@ auth.onAuthStateChanged((user) => {
         }
     }
 });
+
+// Helper function to update user display
+function updateUserDisplay(userName) {
+    const userCode = localStorage.getItem('userAccessCode');
+    
+    // Update name displays
+    const nameElements = document.querySelectorAll('#user-name-header, .user-name-display');
+    nameElements.forEach(el => {
+        if (userCode) {
+            el.textContent = `${userName} (${userCode.substring(0, 7)}...)`;
+            el.title = `Name: ${userName}\nCode: ${userCode}`;
+        } else {
+            el.textContent = userName;
+        }
+    });
+    
+    // Legacy: Update email/code elements if any
+    const legacyElements = document.querySelectorAll('.user-email, .user-code-display');
+    legacyElements.forEach(el => {
+        el.textContent = userName;
+    });
+}
 
 // Logout Function
 function logout() {
