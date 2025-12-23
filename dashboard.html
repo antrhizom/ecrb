@@ -13,7 +13,7 @@
         <div class="header-content">
             <div class="logo">📚 Urheberrecht Lern-App</div>
             <div class="user-info">
-                <span class="user-code-display" style="font-family: 'Courier New', monospace; font-size: 12px;" title="Ihr Zugangs-Code">🔑 <span id="header-user-code">Lädt...</span></span>
+                <span class="user-display" style="font-size: 13px;" id="header-user-display" title="Ihr Name und Code">👤 <span id="user-name-header">Lädt...</span></span>
                 <button class="logout-btn" aria-label="Abmelden" onclick="logout()">Abmelden</button>
             </div>
         </div>
@@ -168,9 +168,16 @@
         // Load user progress and check completion
         auth.onAuthStateChanged(async (user) => {
             if (user) {
-                // Zeige User-Code im Header
-                const userCode = localStorage.getItem('userAccessCode') || 'Kein Code';
-                document.getElementById('header-user-code').textContent = userCode;
+                // Zeige Namen und Code im Header
+                const userName = localStorage.getItem('userName') || 'Anonym';
+                const userCode = localStorage.getItem('userAccessCode');
+                
+                let displayText = userName;
+                if (userCode) {
+                    displayText += ` (${userCode.substring(0, 7)}...)`;
+                }
+                document.getElementById('user-name-header').textContent = displayText;
+                document.getElementById('user-name-header').title = `Name: ${userName}\nCode: ${userCode}`;
                 
                 await loadUserProgress(user.uid);
                 await checkCompletion();
@@ -178,10 +185,14 @@
                 // Nicht eingeloggt - prüfe ob Code in localStorage
                 const savedCode = localStorage.getItem('userAccessCode');
                 const savedUserId = localStorage.getItem('userId');
+                const savedName = localStorage.getItem('userName');
                 
                 if (savedCode && savedUserId) {
                     // User hat Code, aber nicht Firebase-Auth - hole Daten direkt
-                    document.getElementById('header-user-code').textContent = savedCode;
+                    let displayText = savedName || 'Anonym';
+                    displayText += ` (${savedCode.substring(0, 7)}...)`;
+                    document.getElementById('user-name-header').textContent = displayText;
+                    
                     try {
                         const userDoc = await db.collection('users').doc(savedUserId).get();
                         if (userDoc.exists) {
